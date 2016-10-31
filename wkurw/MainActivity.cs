@@ -33,7 +33,7 @@ namespace wkurw
             mLeftItems.Add("Hello Word");
             mLeftItems.Add("Kalkulator");
 
-            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable., Resource.String.open_drawer, Resource.String.close_drawer);
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable.ic_menu, Resource.String.open_drawer, Resource.String.close_drawer);
 
             mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
             mLeftDrawer.Adapter = mLeftAdapter;
@@ -47,6 +47,12 @@ namespace wkurw
         {
             base.OnPostCreate(savedInstanceState);
             mDrawerToggle.SyncState();
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (mDrawerToggle.OnOptionsItemSelected(item))
+                return true;
+            return base.OnOptionsItemSelected(item);
         }
     }
 }
