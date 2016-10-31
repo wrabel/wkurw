@@ -8,18 +8,23 @@ using Android.OS;
 using System.Collections.Generic;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
+using Android.Content.Res;
 
 namespace wkurw
 {
-    [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity
     {
-        int count = 1;
 
         DrawerLayout mDrawerLayout;
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
         ListView mLeftDrawer;
+
+        List<string> mRightItems = new List<string>();
+        ArrayAdapter mRightAdapter;
+        ListView mRightDrawer;
+
         ActionBarDrawerToggle mDrawerToggle;
 
         protected override void OnCreate(Bundle bundle)
@@ -28,8 +33,12 @@ namespace wkurw
 
             SetContentView(Resource.Layout.Main);
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
-            mLeftDrawer = FindViewById<ListView>(Resource.Id.leftList);
+            mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
 
+            mRightItems.Add("support us");
+            mRightItems.Add("exit");
+
+            mLeftDrawer = FindViewById<ListView>(Resource.Id.leftList);
             mLeftItems.Add("Hello Word");
             mLeftItems.Add("Kalkulator");
 
@@ -38,9 +47,13 @@ namespace wkurw
             mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
             mLeftDrawer.Adapter = mLeftAdapter;
 
+            mRightAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mRightItems);
+            mRightDrawer.Adapter = mRightAdapter;
+
             mDrawerLayout.SetDrawerListener(mDrawerToggle);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.SetHomeButtonEnabled(true);         
+            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.SetDisplayShowTitleEnabled(true);
         }
 
         protected override void OnPostCreate(Bundle savedInstanceState)
@@ -48,6 +61,13 @@ namespace wkurw
             base.OnPostCreate(savedInstanceState);
             mDrawerToggle.SyncState();
         }
+
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+            mDrawerToggle.OnConfigurationChanged(newConfig);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (mDrawerToggle.OnOptionsItemSelected(item))

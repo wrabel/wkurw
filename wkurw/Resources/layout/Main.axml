@@ -22,4 +22,12 @@
         android:choiceMode="singleChoice"
         android:divider="#D2D2D2"
         android:background="#F2F2F2" />
+   <ListView
+        android:id="@+id/rightList"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:choiceMode="singleChoice"
+        android:divider="#D2D2D2"
+        android:background="#F2F2F2" />
 </android.support.v4.widget.DrawerLayout>
