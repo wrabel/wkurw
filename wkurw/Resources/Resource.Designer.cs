@@ -47,6 +47,9 @@ namespace wkurw
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			// aapt resource value: 0x7f020001
+			public const int layout1 = 2130837505;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -106,6 +109,12 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int close_drawer = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int open_drawer = 2130968578;
 			
 			static String()
 			{

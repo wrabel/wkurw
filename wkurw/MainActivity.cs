@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
 using Android.Support.V4.Widget;
+using Android.Support.V4.App;
 
 namespace wkurw
 {
@@ -19,6 +20,7 @@ namespace wkurw
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
         ListView mLeftDrawer;
+        ActionBarDrawerToggle mDrawerToggle;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -31,13 +33,20 @@ namespace wkurw
             mLeftItems.Add("Hello Word");
             mLeftItems.Add("Kalkulator");
 
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable., Resource.String.open_drawer, Resource.String.close_drawer);
+
             mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
             mLeftDrawer.Adapter = mLeftAdapter;
-            
-                        Button button = FindViewById<Button>(Resource.Id.MyButton);
 
-                        button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
-            
+            mDrawerLayout.SetDrawerListener(mDrawerToggle);
+            ActionBar.SetDisplayHomeAsUpEnabled(true);
+            ActionBar.SetHomeButtonEnabled(true);         
+        }
+
+        protected override void OnPostCreate(Bundle savedInstanceState)
+        {
+            base.OnPostCreate(savedInstanceState);
+            mDrawerToggle.SyncState();
         }
     }
 }
