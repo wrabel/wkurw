@@ -42,6 +42,9 @@ namespace wkurw
             mLeftItems.Add("Hello Word");
             mLeftItems.Add("Kalkulator");
 
+            mLeftDrawer.Tag = 0;
+            mRightDrawer.Tag = 1;
+
             mDrawerToggle = new MyActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable.ic_menu, Resource.String.open_drawer, Resource.String.close_drawer);
 
             mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
@@ -68,11 +71,42 @@ namespace wkurw
             mDrawerToggle.OnConfigurationChanged(newConfig);
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.action_bar, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (mDrawerToggle.OnOptionsItemSelected(item))
+            {
+                if (mDrawerLayout.IsDrawerOpen(mRightDrawer))
+                {
+                    mDrawerLayout.CloseDrawer(mRightDrawer);
+                }
                 return true;
-            return base.OnOptionsItemSelected(item);
+            }
+
+            switch (item.ItemId)
+            {
+                case Resource.Id.support:
+                    if (mDrawerLayout.IsDrawerOpen(mRightDrawer))
+                    {
+                        mDrawerLayout.CloseDrawer(mRightDrawer);
+                    }
+                    else
+                    {
+                        mDrawerLayout.CloseDrawer(mLeftDrawer);
+                        mDrawerLayout.OpenDrawer(mRightDrawer);
+                    }
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+
+            
         }
     }
 }

@@ -26,19 +26,33 @@ namespace wkurw
 
         public override void OnDrawerOpened(Android.Views.View drawerView)
         {
-            base.OnDrawerOpened(drawerView);
-            mActivity.ActionBar.Title = "Czego chcesz? ";
+            int drawerType = (int)drawerView.Tag;
+            if (drawerType == 0)
+            {   //Left Menu
+                base.OnDrawerOpened(drawerView);
+                mActivity.ActionBar.Title = "Czego chcesz? ";
+
+            }
         }
 
         public override void OnDrawerClosed(Android.Views.View drawerView)
         {
-            base.OnDrawerClosed(drawerView);
-            mActivity.ActionBar.Title = "My Andro App";
+            int drawerType = (int)drawerView.Tag;
+            if (drawerType == 0)
+            {   //Left Menu
+                base.OnDrawerClosed(drawerView);
+                mActivity.ActionBar.Title = "My Andro App";
+            }
+            
         }
 
         public override void OnDrawerSlide(Android.Views.View drawerView, float slideOffset)
         {
-            base.OnDrawerSlide(drawerView, slideOffset);
+            int drawerType = (int)drawerView.Tag;
+            if (drawerType == 0)
+            {   //Left Menu
+                base.OnDrawerSlide(drawerView, slideOffset);
+            }
         }
     }
 }

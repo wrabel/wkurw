@@ -45,10 +45,13 @@ namespace wkurw
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_menu = 2130837504;
+			public const int ic_flag = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int ic_menu = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int Icon = 2130837506;
 			
 			static Drawable()
 			{
@@ -63,20 +66,23 @@ namespace wkurw
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int Drawer = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int Drawer = 2131165184;
 			
-			// aapt resource value: 0x7f060002
-			public const int Text = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int Text = 2131165186;
 			
-			// aapt resource value: 0x7f060001
-			public const int content_frame = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int content_frame = 2131165185;
 			
-			// aapt resource value: 0x7f060003
-			public const int leftList = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int leftList = 2131165187;
 			
-			// aapt resource value: 0x7f060004
-			public const int rightList = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int rightList = 2131165188;
+			
+			// aapt resource value: 0x7f070005
+			public const int support = 2131165189;
 			
 			static Id()
 			{
@@ -100,6 +106,22 @@ namespace wkurw
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int action_bar = 2131099648;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
