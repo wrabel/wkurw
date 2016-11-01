@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
 using System;
+using Android.Content;
 
 namespace wkurw
 {
@@ -65,11 +66,16 @@ namespace wkurw
            switch (iteam)
             {
                 case "Hello Word" :
-                    StartActivity(typeof(activityClicer)); break;
+                    Intent intent = new Intent(this, typeof(activityClicer));
+                    this.StartActivity(intent); break;
                 case "Kalkulator" :
-                    StartActivity(typeof(activityClicer)); break;
+                    Intent intent2 = new Intent(this, typeof(activityClicer));
+                    this.StartActivity(intent2);
+                    this.Finish(); //kill this layout (before changed) 
+                    break;
             }
         }
+        
         void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
         {
             Console.WriteLine(mLeftItems[e.Position]);
