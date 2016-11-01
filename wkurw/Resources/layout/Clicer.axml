@@ -11,28 +11,28 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_weight="20"
-        android:layout_height="0dp"
+        android:layout_height="128.0dp"
         android:textColor="#368DEB"
         android:id="@+id/txtClicer"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="25sp"
-        android:layout_marginTop="40" />
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="41.0dp" />
     <TextView
         android:text="10"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:id="@+id/txtCD"
-        android:layout_marginTop="40" />
+        android:id="@+id/txtCD"/>
     <Button
         android:id="@+id/MyClicer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="143.5dp"
         android:layout_weight="15"
         android:text="@string/Hello"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="40" />
+        android:layout_marginBottom="95.5dp" />
 </LinearLayout>
