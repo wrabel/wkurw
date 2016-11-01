@@ -12,7 +12,7 @@ namespace wkurw
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity
     {
-
+        string left1 = "Hello Word", left2 = "Kalkulator";
         DrawerLayout mDrawerLayout;
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
@@ -36,8 +36,8 @@ namespace wkurw
             mRightItems.Add("exit");
 
             mLeftDrawer = FindViewById<ListView>(Resource.Id.leftList);
-            mLeftItems.Add("Hello Word");
-            mLeftItems.Add("Kalkulator");
+            mLeftItems.Add(left1);
+            mLeftItems.Add(left2);
 
             mLeftDrawer.Tag = 0;
             mRightDrawer.Tag = 1;
@@ -59,11 +59,18 @@ namespace wkurw
             mLeftDrawer.ItemLongClick += mLeftDrawer_ItemClickLong;
         }
 
-         void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
+        protected void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
         {
-            Console.WriteLine(mLeftItems[e.Position]);
+           string iteam = mLeftItems[e.Position];
+           switch (iteam)
+            {
+                case "Hello Word" :
+                    StartActivity(typeof(activityClicer)); break;
+                case "Kalkulator" :
+                    StartActivity(typeof(activityClicer)); break;
+            }
         }
-         void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
+        void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
         {
             Console.WriteLine(mLeftItems[e.Position]);
         }
