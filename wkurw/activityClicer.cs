@@ -21,6 +21,9 @@ namespace wkurw
         private int count = 10;
         private int clicks = 0;
         Timer timer;
+        private bool isfirst = true;
+        private bool blocked = false;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,7 +32,15 @@ namespace wkurw
 
             MyClicer = FindViewById<Button>(Resource.Id.MyClicer);
             txtCD = FindViewById<TextView>(Resource.Id.txtCD);
-            MyClicer.Click += delegate { MyClicer.Text = string.Format("{0} clicks!", clicks++); };
+            MyClicer.Click += delegate 
+            {
+                if (isfirst)
+                {
+                    timer.Start();
+                    isfirst = false;
+                }
+                if(blocked == false ) MyClicer.Text = string.Format("{0} clicks!", clicks++);
+            };
 
         }
 
@@ -40,7 +51,6 @@ namespace wkurw
             timer = new Timer();
             timer.Interval = 1000;
             timer.Elapsed += Timer_Elapsed;
-            timer.Start();
         }
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -57,6 +67,7 @@ namespace wkurw
                 count = 0;
                 txtCD.Text = "" + count;
                 timer.Stop();
+                blocked = true;
             }
         }
     }
