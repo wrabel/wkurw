@@ -5,6 +5,7 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
+using System;
 
 namespace wkurw
 {
@@ -53,8 +54,19 @@ namespace wkurw
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayShowTitleEnabled(true);
+
+            mLeftDrawer.ItemClick += mLeftDrawer_ItemClickShort;
+            mLeftDrawer.ItemLongClick += mLeftDrawer_ItemClickLong;
         }
 
+         void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Console.WriteLine(mLeftItems[e.Position]);
+        }
+         void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            Console.WriteLine(mLeftItems[e.Position]);
+        }
         protected override void OnPostCreate(Bundle savedInstanceState)
         {
             base.OnPostCreate(savedInstanceState);
