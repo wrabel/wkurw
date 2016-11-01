@@ -1,14 +1,10 @@
-﻿using System;
-using Android.App;
-using Android.Content;
-using Android.Runtime;
+﻿using Android.App;
+using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
 using System.Collections.Generic;
-using Android.Support.V4.Widget;
-using Android.Support.V4.App;
-using Android.Content.Res;
 
 namespace wkurw
 {
