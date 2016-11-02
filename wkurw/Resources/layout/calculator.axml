@@ -17,8 +17,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_waluta_1"
             android:layout_gravity="center"
-            android:layout_marginBottom="27.5dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="19.5dp" />
+        <TextView
+            android:text="to bedzie pole combi"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:gravity="center"
+            android:layout_marginBottom="25dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -31,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="start"
-            android:id="@+id/txt_dodac_odjac" />
+            android:id="@+id/txt_dodac_odjac"
+            android:layout_marginTop="5dp" />
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +58,8 @@
             android:layout_width="314.0dp"
             android:layout_height="match_parent"
             android:gravity="start"
-            android:id="@+id/txt_dziel_mnoz" />
+            android:id="@+id/txt_dziel_mnoz"
+            android:layout_marginTop="5.0dp" />
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,6 +74,19 @@
         android:minHeight="25px"
         android:gravity="bottom"
         android:id="@+id/linearLayout4">
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText1"
+            android:layout_marginBottom="40.0dp" />
+        <TextView
+            android:text="to tez bedzie pole combi "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:gravity="center" />
         <TextView
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
