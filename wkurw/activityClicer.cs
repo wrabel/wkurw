@@ -32,19 +32,20 @@ namespace wkurw
 
             MyClicer = FindViewById<Button>(Resource.Id.MyClicer);
             txtCD = FindViewById<TextView>(Resource.Id.txtCD);
-            MyClicer.Click += delegate 
-            {
-                if (isfirst)
-                {
-                    timer.Start();
-                    isfirst = false;
-                }
-                if(blocked == false ) MyClicer.Text = string.Format("{0} clicks!", clicks++);
-            };
-
+            MyClicer.Click += MyClicer_Click;
         }
 
-        
+        private void MyClicer_Click(object sender, EventArgs e)
+        {
+            if (isfirst)
+            {
+                timer.Start();
+                isfirst = false;
+            }
+            if (blocked == false) MyClicer.Text = string.Format("{0} clicks!", clicks++);
+            if (blocked) MyClicer.Text = string.Format("Your score: {0} clicks!", clicks);
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
