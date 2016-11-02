@@ -58,6 +58,27 @@ namespace wkurw
 
             mLeftDrawer.ItemClick += mLeftDrawer_ItemClickShort;
             mLeftDrawer.ItemLongClick += mLeftDrawer_ItemClickLong;
+
+            mRightDrawer.ItemClick += mRightDrawer_ItemClickShort;
+            mRightDrawer.ItemLongClick += mRightDrawer_ItemClickLong;
+
+        }
+
+        void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            
+        }
+
+        public void mRightDrawer_ItemClickShort(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            string iteam = mRightItems[e.Position];
+            switch (iteam)
+            {
+                case "support us":
+                    Finish(); break;
+                case "exit":
+                    Android.OS.Process.KillProcess(Android.OS.Process.MyPid()); break;
+            }
         }
 
         protected void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
