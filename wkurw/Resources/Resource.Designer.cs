@@ -81,9 +81,6 @@ namespace wkurw
 			// aapt resource value: 0x7f070012
 			public const int content_frame = 2131165202;
 			
-			// aapt resource value: 0x7f07000a
-			public const int editText1 = 2131165194;
-			
 			// aapt resource value: 0x7f070014
 			public const int leftList = 2131165204;
 			
@@ -111,12 +108,6 @@ namespace wkurw
 			// aapt resource value: 0x7f070008
 			public const int switch_dziel_mnoz = 2131165192;
 			
-			// aapt resource value: 0x7f070002
-			public const int textView1 = 2131165186;
-			
-			// aapt resource value: 0x7f07000b
-			public const int textView2 = 2131165195;
-			
 			// aapt resource value: 0x7f07000f
 			public const int txtCD = 2131165199;
 			
@@ -129,8 +120,17 @@ namespace wkurw
 			// aapt resource value: 0x7f070007
 			public const int txt_dziel_mnoz = 2131165191;
 			
+			// aapt resource value: 0x7f070002
+			public const int txt_kombi_1 = 2131165186;
+			
+			// aapt resource value: 0x7f07000b
+			public const int txt_kombi_2 = 2131165195;
+			
 			// aapt resource value: 0x7f070001
 			public const int txt_waluta_1 = 2131165185;
+			
+			// aapt resource value: 0x7f07000a
+			public const int txt_waluta_2 = 2131165194;
 			
 			// aapt resource value: 0x7f07000c
 			public const int txt_wynik = 2131165196;
