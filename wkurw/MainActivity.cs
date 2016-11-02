@@ -90,7 +90,7 @@ namespace wkurw
                     Intent intent = new Intent(this, typeof(activityClicer));
                     this.StartActivity(intent); break;
                 case "Kalkulator" :
-                    Intent intent2 = new Intent(this, typeof(activityClicer));
+                    Intent intent2 = new Intent(this, typeof(activityCalculator));
                     this.StartActivity(intent2);
                     this.Finish(); //kill this layout (before changed) 
                     break;

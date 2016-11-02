@@ -66,53 +66,65 @@ namespace wkurw
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070006
-			public const int Drawer = 2131165190;
-			
-			// aapt resource value: 0x7f070005
-			public const int MyClicer = 2131165189;
-			
-			// aapt resource value: 0x7f070008
-			public const int Text = 2131165192;
-			
-			// aapt resource value: 0x7f070000
-			public const int btn_1 = 2131165184;
-			
-			// aapt resource value: 0x7f070001
-			public const int btn_2 = 2131165185;
-			
-			// aapt resource value: 0x7f070002
-			public const int btn_3 = 2131165186;
-			
-			// aapt resource value: 0x7f070007
-			public const int content_frame = 2131165191;
-			
-			// aapt resource value: 0x7f07000b
-			public const int editText1 = 2131165195;
-			
-			// aapt resource value: 0x7f070009
-			public const int leftList = 2131165193;
-			
-			// aapt resource value: 0x7f07000a
-			public const int rightList = 2131165194;
-			
-			// aapt resource value: 0x7f07000f
-			public const int support = 2131165199;
+			// aapt resource value: 0x7f07000e
+			public const int Drawer = 2131165198;
 			
 			// aapt resource value: 0x7f07000d
-			public const int switch1 = 2131165197;
+			public const int MyClicer = 2131165197;
 			
-			// aapt resource value: 0x7f07000c
-			public const int tabWidget1 = 2131165196;
+			// aapt resource value: 0x7f070010
+			public const int Text = 2131165200;
 			
-			// aapt resource value: 0x7f07000e
-			public const int textView1 = 2131165198;
+			// aapt resource value: 0x7f07000a
+			public const int button112 = 2131165194;
+			
+			// aapt resource value: 0x7f07000f
+			public const int content_frame = 2131165199;
+			
+			// aapt resource value: 0x7f070001
+			public const int editText1 = 2131165185;
+			
+			// aapt resource value: 0x7f070011
+			public const int leftList = 2131165201;
+			
+			// aapt resource value: 0x7f070002
+			public const int linearLayout2 = 2131165186;
+			
+			// aapt resource value: 0x7f070005
+			public const int linearLayout22 = 2131165189;
+			
+			// aapt resource value: 0x7f070000
+			public const int linearLayout4 = 2131165184;
+			
+			// aapt resource value: 0x7f070008
+			public const int linearLayout44 = 2131165192;
+			
+			// aapt resource value: 0x7f070012
+			public const int rightList = 2131165202;
+			
+			// aapt resource value: 0x7f070013
+			public const int support = 2131165203;
 			
 			// aapt resource value: 0x7f070004
-			public const int txtCD = 2131165188;
+			public const int switch1 = 2131165188;
+			
+			// aapt resource value: 0x7f070007
+			public const int switch2 = 2131165191;
 			
 			// aapt resource value: 0x7f070003
-			public const int txtClicer = 2131165187;
+			public const int textView1 = 2131165187;
+			
+			// aapt resource value: 0x7f070006
+			public const int textView2 = 2131165190;
+			
+			// aapt resource value: 0x7f070009
+			public const int textView3 = 2131165193;
+			
+			// aapt resource value: 0x7f07000c
+			public const int txtCD = 2131165196;
+			
+			// aapt resource value: 0x7f07000b
+			public const int txtClicer = 2131165195;
 			
 			static Id()
 			{
@@ -135,9 +147,6 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f030002
 			public const int Main = 2130903042;
-			
-			// aapt resource value: 0x7f030003
-			public const int tmp = 2130903043;
 			
 			static Layout()
 			{

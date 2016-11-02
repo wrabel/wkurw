@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Content.Res;
+using Android.Support.V4.App;
 
 namespace wkurw
 {
@@ -23,10 +24,13 @@ namespace wkurw
         Timer timer;
         private bool isfirst = true;
         private bool blocked = false;
+        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            ActionBar.Title = " Fast Clicks ;] ";
+            ActionBar.SetDisplayShowTitleEnabled(true);
 
             SetContentView(Resource.Layout.Clicer);
 
