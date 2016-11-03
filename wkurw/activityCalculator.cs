@@ -19,9 +19,7 @@ namespace wkurw
         private TextView txt_wynik;
         private Switch switch1,switch2; 
         private EditText txt1, txt2;
-        private bool pierwszyON, drugiON;
-        private string [] pierwszy_switch;
-        private string [] drugi_switch;
+        bool pierwszyON = false , drugiON = false;
         private int znaczek;
 
         private TextView kombi1, kombi2; // to beda pola kombi ale tymczasowo zwykly text
@@ -46,8 +44,8 @@ namespace wkurw
             kombi1 = FindViewById<TextView>(Resource.Id.txt_kombi_1);
             kombi2 = FindViewById<TextView>(Resource.Id.txt_kombi_2);
 
-            pierwszyON = false;
-            drugiON = false;
+     //       pierwszyON = false;
+     //       drugiON = false;
             buttom_ob.Click += oblicz_click;
             buttom_znak.Click += zmien_znak;
             znaczek = 0;
@@ -59,22 +57,22 @@ namespace wkurw
 
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
-
-            string[] pierwszy_switch = { "+" , "-" };
-            string[] drugi_switch = { "x", "/" };
+            
 
         }
 
         private void zmien_znak(object sender, EventArgs e)
         {
+            znaczek = znaczek % 2;
             if (pierwszyON)
             {
-                buttom_znak.Text = string.Format("{0}", ((znaczek++ % 2)==0 ? pierwszy_switch[0] : pierwszy_switch[1]));
+                buttom_znak.Text = (znaczek==0 ? "+" : "-") ;
             }
             if (drugiON)
             {
-                buttom_znak.Text = string.Format("{0}", ((znaczek++ % 2) == 0 ? drugi_switch[0] : drugi_switch[1]));
+                buttom_znak.Text = (znaczek == 0 ? "x" : "/");
             }
+            znaczek++;
         }
 
         private void visible_of_first(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -82,6 +80,7 @@ namespace wkurw
             pierwszyON = e.IsChecked;
             if (e.IsChecked)
             {
+                buttom_znak.Text = "znak";
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
                 
@@ -100,6 +99,7 @@ namespace wkurw
             drugiON = e.IsChecked;
             if (e.IsChecked)
             {
+                buttom_znak.Text = "znak";
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
             }
