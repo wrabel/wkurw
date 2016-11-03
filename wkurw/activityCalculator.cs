@@ -19,7 +19,7 @@ namespace wkurw
         private TextView txt_wynik;
         private Switch switch1,switch2; 
         private EditText txt1, txt2;
-        bool pierwszyON = false , drugiON = false;
+        bool pierwszyON, drugiON ;
         private int znaczek;
 
         private TextView kombi1, kombi2,kombi3; // to beda pola kombi ale tymczasowo zwykly text
@@ -45,8 +45,8 @@ namespace wkurw
             kombi2 = FindViewById<TextView>(Resource.Id.txt_kombi_2);
             kombi3 = FindViewById<TextView>(Resource.Id.txt_kombi_3);
 
-     //       pierwszyON = false;
-     //       drugiON = false;
+            pierwszyON = false;
+            drugiON = false;
             buttom_ob.Click += oblicz_click;
             buttom_znak.Click += zmien_znak;
             znaczek = 0;
@@ -59,6 +59,7 @@ namespace wkurw
 
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
+
             
 
         }
@@ -79,6 +80,10 @@ namespace wkurw
 
         private void visible_of_first(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
+            if (drugiON)
+            {
+                switch2.Checked = false;
+            }
             pierwszyON = e.IsChecked;
             if (e.IsChecked)
             {
@@ -98,6 +103,10 @@ namespace wkurw
 
         private void visible_of_second(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
+            if (pierwszyON)
+            {
+                switch1.Checked = false;
+            }
             drugiON = e.IsChecked;
             if (e.IsChecked)
             {
