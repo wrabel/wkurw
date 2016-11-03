@@ -49,7 +49,10 @@ namespace wkurw
                 timer.Enabled = true;
                 isfirst = false;
             }
-           MyClicer.Text = string.Format("{0} clicks!", clicks++);
+            if (MyClicer.Enabled)
+            {
+                MyClicer.Text = string.Format("{0} clicks!", clicks++);
+            }   
         }
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -62,7 +65,10 @@ namespace wkurw
             if (count == 0)
             {
                 timer.Stop();
-                MyClicer.Text = string.Format("Your score: {0}!", clicks);
+                RunOnUiThread(() =>
+                {
+                    MyClicer.Text = string.Format("Your score: {0}!", clicks);
+                });
                 MyClicer.Enabled = false;
             }
         }
