@@ -7,7 +7,7 @@ using Android.Widget;
 using System.Collections.Generic;
 using System;
 using Android.Content;
-
+// pamietac usunac console write w "dlugich clicach menu"
 namespace wkurw
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
