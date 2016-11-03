@@ -65,7 +65,7 @@ namespace wkurw
 
         private void zmien_znak(object sender, EventArgs e)
         {
-            znaczek = znaczek % 2;
+            znaczek %= 2;
             if (pierwszyON)
             {
                 buttom_znak.Text = (znaczek==0 ? "+" : "-") ;
@@ -124,41 +124,28 @@ namespace wkurw
             }
             if (pierwszyON)
             {
-                if (buttom_znak.Text == "+")
+                switch (buttom_znak.Text)
                 {
-                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text));
-                }
-                if (buttom_znak.Text == "-")
-                {
-
-                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text));
-                }
-                else
-                {
-                    txt_wynik.Text = "Ustal znak";
+                    case "+" :
+                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text)); break;
+                    case "-" :
+                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text)); break;
+                    default:
+                        txt_wynik.Text = "Ustal znak"; break;
                 }
             }
             if (drugiON)
             {
-                if (buttom_znak.Text == "x")
+                switch (buttom_znak.Text)
                 {
-                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) * double.Parse(txt2.Text));
+                    case "x":
+                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) * double.Parse(txt2.Text)); break;
+                    case "/":
+                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) / double.Parse(txt2.Text)); break;
+                    default:
+                        txt_wynik.Text = "Ustal znak"; break;
                 }
-                if (buttom_znak.Text == "/")
-                {
-                    if (txt2.Text == "0")
-                    {
-                        txt_wynik.Text = "Nie dzielimy przez 0";
-                    }
-                    else
-                    {
-                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) / double.Parse(txt2.Text));
-                    }
-                }
-                else
-                {
-                    txt_wynik.Text = "Ustal znak";
-                }
+
             }
             
         }
