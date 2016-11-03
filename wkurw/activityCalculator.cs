@@ -15,10 +15,14 @@ namespace wkurw
     [Activity(Label = "activityCalculator")]
     public class activityCalculator : Activity
     {
-        private Button buttom_ob;
+        private Button buttom_ob,buttom_znak;
         private TextView txt_wynik;
         private Switch switch1,switch2; 
         private EditText txt1, txt2;
+        private bool pierwszyON, drugiON;
+        private string [] pierwszy_switch;
+        private string [] drugi_switch;
+        private int znaczek;
 
         private TextView kombi1, kombi2; // to beda pola kombi ale tymczasowo zwykly text
 
@@ -32,6 +36,7 @@ namespace wkurw
             ActionBar.SetDisplayShowTitleEnabled(true);
 
             buttom_ob = FindViewById<Button>(Resource.Id.button_oblicz);
+            buttom_znak = FindViewById<Button>(Resource.Id.button_znak);
             txt_wynik = FindViewById<TextView>(Resource.Id.txt_wynik);
             switch2 = FindViewById<Switch>(Resource.Id.switch_dziel_mnoz);
             switch1 = FindViewById<Switch>(Resource.Id.switch_dodac_odjac);
@@ -41,39 +46,66 @@ namespace wkurw
             kombi1 = FindViewById<TextView>(Resource.Id.txt_kombi_1);
             kombi2 = FindViewById<TextView>(Resource.Id.txt_kombi_2);
 
-
+            pierwszyON = false;
+            drugiON = false;
             buttom_ob.Click += oblicz_click;
+            buttom_znak.Click += zmien_znak;
+            znaczek = 0;
 
             kombi2.Visibility = ViewStates.Gone; //bedzie kombi
 
             txt2.Visibility = ViewStates.Gone;
+            buttom_znak.Visibility = ViewStates.Gone;
 
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
+
+            string[] pierwszy_switch = { "+" , "-" };
+            string[] drugi_switch = { "x", "/" };
+
+        }
+
+        private void zmien_znak(object sender, EventArgs e)
+        {
+            if (pierwszyON)
+            {
+                buttom_znak.Text = string.Format("{0}", ((znaczek++ % 2)==0 ? pierwszy_switch[0] : pierwszy_switch[1]));
+            }
+            if (drugiON)
+            {
+                buttom_znak.Text = string.Format("{0}", ((znaczek++ % 2) == 0 ? drugi_switch[0] : drugi_switch[1]));
+            }
         }
 
         private void visible_of_first(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
+            pierwszyON = e.IsChecked;
             if (e.IsChecked)
             {
+                buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
-                kombi2.Visibility = ViewStates.Visible;
+                
+                kombi2.Visibility = ViewStates.Visible; //do zmiany na kombi
             }
             else
             {
+                buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
-                kombi2.Visibility = ViewStates.Gone;
+                kombi2.Visibility = ViewStates.Gone; //do zmainy na kombi
             }
         }
 
         private void visible_of_second(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
+            drugiON = e.IsChecked;
             if (e.IsChecked)
             {
+                buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
             }
             else
             {
+                buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
             }
         }
