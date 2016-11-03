@@ -126,12 +126,12 @@ namespace wkurw
             {
                 if (buttom_znak.Text == "+")
                 {
-                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2));
+                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text));
                 }
                 if (buttom_znak.Text == "-")
                 {
 
-                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2));
+                    txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text));
                 }
                 else
                 {
