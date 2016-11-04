@@ -136,7 +136,7 @@ namespace wkurw
 			public const int txtPassword = 2131165207;
 			
 			// aapt resource value: 0x7f070016
-			public const int txtUserName = 2131165206;
+			public const int txtUserMail = 2131165206;
 			
 			// aapt resource value: 0x7f070006
 			public const int txt_kombi_1 = 2131165190;
