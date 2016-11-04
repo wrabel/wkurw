@@ -1,22 +1,24 @@
-﻿using Android.App;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
 using Android.OS;
-using Android.Support.V4.App;
-using Android.Support.V4.Widget;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
-using System;
-using Android.Content;
-using Android.Views.InputMethods;
-using Android.Runtime;
-// pamietac usunac console write w "dlugich clicach menu"
+using Android.Support.V4.Widget;
+using Android.Support.V4.App;
+
+
 namespace wkurw
 {
-    [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
-    public class MainActivity : Activity
+    [Activity(Label = "loged")]
+    public class loged : Activity
     {
         string left1 = "Hello Word", left2 = "Kalkulator";
-       // RelativeLayout mRelativeLayout;
         DrawerLayout mDrawerLayout;
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
@@ -28,16 +30,11 @@ namespace wkurw
 
         ActionBarDrawerToggle mDrawerToggle;
 
-       
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-           // mRelativeLayout = FindViewById<RelativeLayout>(Resource.Id.mainView);
-           // mRelativeLayout.Click += mRelativeLayout_Click;
-
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.after_log);
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
             mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
 
@@ -72,18 +69,12 @@ namespace wkurw
 
         }
 
-   //     void mRelativeLayout_Click(object sender, EventArgs e)
-     //   {
-   //         InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
-   //         inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
-    //    }
-//
-        protected void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
+        void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            Toast.MakeText(this, "krotki opis: " + mRightItems[e.Position],ToastLength.Short).Show();
+
         }
 
-        protected void mRightDrawer_ItemClickShort(object sender, AdapterView.ItemClickEventArgs e)
+        public void mRightDrawer_ItemClickShort(object sender, AdapterView.ItemClickEventArgs e)
         {
             string iteam = mRightItems[e.Position];
             switch (iteam)
@@ -95,25 +86,25 @@ namespace wkurw
             }
         }
 
-        protected void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
+        protected void mLeftDrawer_ItemClickShort(object sender, AdapterView.ItemClickEventArgs e)
         {
-           string iteam = mLeftItems[e.Position];
-           switch (iteam)
+            string iteam = mLeftItems[e.Position];
+            switch (iteam)
             {
-                case "Hello Word" :
+                case "Hello Word":
                     Intent intent = new Intent(this, typeof(activityClicer));
                     this.StartActivity(intent); break;
-                case "Kalkulator" :
+                case "Kalkulator":
                     Intent intent2 = new Intent(this, typeof(activityCalculator));
                     this.StartActivity(intent2);
                     this.Finish(); //kill this layout (before changed) 
                     break;
             }
         }
-        
-        protected void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
+
+        void mLeftDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
         {
-            Toast.MakeText(this, "krotki opis: " + mLeftItems[e.Position], ToastLength.Short).Show();
+            Console.WriteLine(mLeftItems[e.Position]);
         }
         protected override void OnPostCreate(Bundle savedInstanceState)
         {
@@ -162,8 +153,7 @@ namespace wkurw
                     return base.OnOptionsItemSelected(item);
             }
 
-            
+
         }
     }
 }
-
