@@ -45,13 +45,22 @@ namespace wkurw
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_flag = 2130837504;
+			public const int button_email_style = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int ic_menu = 2130837505;
+			public const int checkbox_style = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int edit_text_style = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int ic_flag = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int ic_menu = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int Icon = 2130837509;
 			
 			static Drawable()
 			{
@@ -72,8 +81,8 @@ namespace wkurw
 			// aapt resource value: 0x7f070010
 			public const int MyClicer = 2131165200;
 			
-			// aapt resource value: 0x7f070013
-			public const int Text = 2131165203;
+			// aapt resource value: 0x7f070016
+			public const int btnLogin = 2131165206;
 			
 			// aapt resource value: 0x7f07000d
 			public const int button_oblicz = 2131165197;
@@ -81,11 +90,14 @@ namespace wkurw
 			// aapt resource value: 0x7f070006
 			public const int button_znak = 2131165190;
 			
+			// aapt resource value: 0x7f070017
+			public const int checkBox1 = 2131165207;
+			
 			// aapt resource value: 0x7f070012
 			public const int content_frame = 2131165202;
 			
-			// aapt resource value: 0x7f070014
-			public const int leftList = 2131165204;
+			// aapt resource value: 0x7f070018
+			public const int leftList = 2131165208;
 			
 			// aapt resource value: 0x7f070000
 			public const int linearLayout1 = 2131165184;
@@ -99,11 +111,14 @@ namespace wkurw
 			// aapt resource value: 0x7f07000a
 			public const int linearLayout4 = 2131165194;
 			
-			// aapt resource value: 0x7f070015
-			public const int rightList = 2131165205;
+			// aapt resource value: 0x7f070013
+			public const int mainView = 2131165203;
 			
-			// aapt resource value: 0x7f070016
-			public const int support = 2131165206;
+			// aapt resource value: 0x7f070019
+			public const int rightList = 2131165209;
+			
+			// aapt resource value: 0x7f07001a
+			public const int support = 2131165210;
 			
 			// aapt resource value: 0x7f070003
 			public const int switch_dodac_odjac = 2131165187;
@@ -116,6 +131,12 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f07000e
 			public const int txtClicer = 2131165198;
+			
+			// aapt resource value: 0x7f070015
+			public const int txtPassword = 2131165205;
+			
+			// aapt resource value: 0x7f070014
+			public const int txtUserName = 2131165204;
 			
 			// aapt resource value: 0x7f070002
 			public const int txt_kombi_1 = 2131165186;
