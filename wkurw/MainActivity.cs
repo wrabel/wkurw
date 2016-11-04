@@ -5,18 +5,16 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
-using System;
+//using System;
 using Android.Content;
 using Android.Views.InputMethods;
 using Android.Runtime;
-// pamietac usunac console write w "dlugich clicach menu"
 namespace wkurw
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity
     {
         string left1 = "Hello Word", left2 = "Kalkulator";
-       // RelativeLayout mRelativeLayout;
         DrawerLayout mDrawerLayout;
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
@@ -33,9 +31,6 @@ namespace wkurw
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-           // mRelativeLayout = FindViewById<RelativeLayout>(Resource.Id.mainView);
-           // mRelativeLayout.Click += mRelativeLayout_Click;
 
             SetContentView(Resource.Layout.Main);
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
@@ -72,12 +67,6 @@ namespace wkurw
 
         }
 
-   //     void mRelativeLayout_Click(object sender, EventArgs e)
-     //   {
-   //         InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
-   //         inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
-    //    }
-//
         protected void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
         {
             Toast.MakeText(this, "krotki opis: " + mRightItems[e.Position],ToastLength.Short).Show();
@@ -91,7 +80,7 @@ namespace wkurw
                 case "support us":
                     Finish(); break;
                 case "exit":
-                    Android.OS.Process.KillProcess(Android.OS.Process.MyPid()); break;
+                    Process.KillProcess(Process.MyPid()); break;
             }
         }
 
@@ -106,8 +95,7 @@ namespace wkurw
                 case "Kalkulator" :
                     Intent intent2 = new Intent(this, typeof(activityCalculator));
                     this.StartActivity(intent2);
-                    this.Finish(); //kill this layout (before changed) 
-                    break;
+                    this.Finish(); break;
             }
         }
         
