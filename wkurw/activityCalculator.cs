@@ -22,7 +22,9 @@ namespace wkurw
         bool pierwszyON, drugiON ;
         private int znaczek;
 
-        private TextView kombi1, kombi2,kombi3; // to beda pola kombi ale tymczasowo zwykly text
+        private Spinner kombi1, kombi2,kombi3; //kombi 
+
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,9 +43,40 @@ namespace wkurw
             txt1 = FindViewById<EditText>(Resource.Id.txt_waluta_1);
             txt2 = FindViewById<EditText>(Resource.Id.txt_waluta_2);
 
-            kombi1 = FindViewById<TextView>(Resource.Id.txt_kombi_1);
-            kombi2 = FindViewById<TextView>(Resource.Id.txt_kombi_2);
-            kombi3 = FindViewById<TextView>(Resource.Id.txt_kombi_3);
+            kombi1 = FindViewById<Spinner>(Resource.Id.txt_kombi_1);
+            kombi2 = FindViewById<Spinner>(Resource.Id.txt_kombi_2);
+            kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
+
+            var kombi_1 = new string[]
+            {
+                "wybierz walute:",
+                "PLN",
+                "USD", //dolar
+                "EUR", //eoru
+                "YEN" //japonski jen :D
+            };
+
+            var kombi_2 = new string[]
+            {
+                "wybierz walute:",
+                "PLN",
+                "USD", //dolar
+                "EUR", //eoru
+                "YEN" //japonski jen :D
+            };
+
+            var kombi_3 = new string[]
+            {
+                "wybierz walute:",
+                "PLN",
+                "USD", //dolar
+                "EUR", //eoru
+                "YEN" //japonski jen :D
+            };
+
+            kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_2);
+            kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_3);
 
             pierwszyON = false;
             drugiON = false;
@@ -51,8 +84,8 @@ namespace wkurw
             buttom_znak.Click += zmien_znak;
             znaczek = 0;
 
-            kombi2.Visibility = ViewStates.Gone; //bedzie kombi
-            kombi3.Visibility = ViewStates.Visible; //bedzie kombi
+            kombi2.Visibility = ViewStates.Gone;  // kombi
+            kombi3.Visibility = ViewStates.Visible; // kombi
 
             txt2.Visibility = ViewStates.Gone;
             buttom_znak.Visibility = ViewStates.Gone;
@@ -62,7 +95,9 @@ namespace wkurw
 
             
 
-        }
+            
+
+}
 
         private void zmien_znak(object sender, EventArgs e)
         {
@@ -91,13 +126,13 @@ namespace wkurw
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
                 
-                kombi2.Visibility = ViewStates.Visible; //do zmiany na kombi
+                kombi2.Visibility = ViewStates.Visible; //kombi
             }
             else
             {
                 buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
-                kombi2.Visibility = ViewStates.Gone; //do zmainy na kombi
+                kombi2.Visibility = ViewStates.Gone; //kombi
             }
         }
 
@@ -114,7 +149,7 @@ namespace wkurw
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
 
-                kombi3.Visibility = ViewStates.Gone; // kombi
+                kombi3.Visibility = ViewStates.Gone; //kombi
             }
             else
             {

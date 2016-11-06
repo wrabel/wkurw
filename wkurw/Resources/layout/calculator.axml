@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:minWidth="25px"
-        android:minHeight="25px"
+        android:minHeight="90px"
         android:id="@+id/linearLayout1"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp">
@@ -19,11 +19,9 @@
             android:layout_height="match_parent"
             android:id="@+id/txt_waluta_1"
             android:layout_gravity="center" />
-        <TextView
-            android:text="to bedzie pole combi"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+        <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/txt_kombi_1"
             android:gravity="center" />
     </LinearLayout>
@@ -58,10 +56,10 @@
             android:id="@+id/button_znak"
             tools:visibility="visible"
             android:layout_gravity="center"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="25dp" />
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="63.5dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:minWidth="25px"
             android:minHeight="25px"
@@ -73,9 +71,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/txt_waluta_2"
                 tools:visibility="visible" />
-            <TextView xmlns:tools="http://schemas.android.com/tools"
-                android:text="to tez bedzie pole combi "
-                android:textAppearance="?android:attr/textAppearanceMedium"
+            <Spinner xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_kombi_2"
@@ -84,7 +80,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="75.0dp"
+            android:layout_height="50.0dp"
             android:orientation="horizontal"
             android:minWidth="25px"
             android:minHeight="25px"
@@ -97,9 +93,7 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/txt_wynik"
                 android:gravity="center" />
-            <TextView xmlns:tools="http://schemas.android.com/tools"
-                android:text="i to bedzie pole combi "
-                android:textAppearance="?android:attr/textAppearanceMedium"
+            <Spinner xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_kombi_3"
