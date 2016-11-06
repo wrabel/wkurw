@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+
 namespace wkurw
 {
     [Activity(Label = "activityCalculator")]
@@ -120,7 +121,7 @@ namespace wkurw
             
             if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
             {
-                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
             }
         }
         

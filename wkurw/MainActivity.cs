@@ -5,10 +5,7 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
-//using System;
 using Android.Content;
-using Android.Views.InputMethods;
-using Android.Runtime;
 namespace wkurw
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
