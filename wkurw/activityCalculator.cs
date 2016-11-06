@@ -55,7 +55,7 @@ namespace wkurw
                 "EUR", //eoru
                 "YEN" //japonski jen :D
             };
-
+/*
             var kombi_2 = new string[]
             {
                 "wybierz walute:",
@@ -73,10 +73,14 @@ namespace wkurw
                 "EUR", //eoru
                 "YEN" //japonski jen :D
             };
-
+*/
             kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
-            kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_2);
-            kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_3);
+            kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            
+            kombi1.ItemSelected += kombi1_selected;
+            kombi2.ItemSelected += kombi1_selected;
+            kombi3.ItemSelected += kombi1_selected;
 
             pierwszyON = false;
             drugiON = false;
@@ -93,12 +97,33 @@ namespace wkurw
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
 
-            
-
-            
-
 }
+/*
+        private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+            {
+                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+            }
+        }
 
+        private void kombi2_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+            {
+                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+            }
+        }
+*/
+        private void kombi1_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            
+            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+            {
+                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+            }
+        }
+        
         private void zmien_znak(object sender, EventArgs e)
         {
             znaczek %= 2;
