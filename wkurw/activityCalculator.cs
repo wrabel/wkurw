@@ -187,7 +187,7 @@ namespace wkurw
             }
         }
 
-        private void oblicz_click (object sender, EventArgs e)
+        private async void oblicz_click(object sender, EventArgs e)
         {
             if (txt1.Text != "")
             {
@@ -195,10 +195,23 @@ namespace wkurw
                 {
                     if (!pierwszyON && !drugiON)
                     {
-
                         if (kombi1.SelectedItemPosition == kombi3.SelectedItemPosition)
                         {
                             txt_wynik.Text = string.Format("wynik: {0}", txt1.Text);
+                        }
+                        else
+                        {
+                            var exchangeWebService = new ExchangeWebService();
+                            var baseCurrency = kombi1.SelectedItem.ToString();
+                            var destCurrency = kombi3.SelectedItem.ToString();
+                            var rate = await exchangeWebService.GetSingleRate
+                                (
+                                baseCurrency,
+                                destCurrency
+                                );
+                            var kwota_z = Convert.ToInt32(txt1.Text);
+                            var exchange = kwota_z * rate;
+                            txt_wynik.Text = string.Format("wynik: {0}", exchange);
                         }
                     }
                     if (pierwszyON)
