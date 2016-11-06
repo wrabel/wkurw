@@ -54,35 +54,35 @@ namespace wkurw
                 "PLN",
                 "USD", //dolar
                 "EUR", //eoru
-                "YEN" //japonski jen :D
+                "JPY" //japonski jen :D
             };
-/*
-            var kombi_2 = new string[]
-            {
-                "wybierz walute:",
-                "PLN",
-                "USD", //dolar
-                "EUR", //eoru
-                "YEN" //japonski jen :D
-            };
+            /*
+                        var kombi_2 = new string[]
+                        {
+                            "wybierz walute:",
+                            "PLN",
+                            "USD", //dolar
+                            "EUR", //eoru
+                            "JPY" //japonski jen :D
+                        };
 
-            var kombi_3 = new string[]
-            {
-                "wybierz walute:",
-                "PLN",
-                "USD", //dolar
-                "EUR", //eoru
-                "YEN" //japonski jen :D
-            };
-*/
+                        var kombi_3 = new string[]
+                        {
+                            "wybierz walute:",
+                            "PLN",
+                            "USD", //dolar
+                            "EUR", //eoru
+                            "JPY" //japonski jen :D
+                        };
+            */
             kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             
-            kombi1.ItemSelected += kombi1_selected;
+ /*           kombi1.ItemSelected += kombi1_selected;
             kombi2.ItemSelected += kombi1_selected;
             kombi3.ItemSelected += kombi1_selected;
-
+            */
             pierwszyON = false;
             drugiON = false;
             buttom_ob.Click += oblicz_click;
@@ -99,38 +99,39 @@ namespace wkurw
             switch2.CheckedChange += visible_of_second;
 
 }
-/*
-        private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-            {
-                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
-            }
-        }
+        /*
+                private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+                {
+                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+                    {
+                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+                    }
+                }
 
-        private void kombi2_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-            {
-                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
-            }
-        }
-*/
-        private void kombi1_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            
-            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-            {
-                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
-            }
-        }
-        
+                private void kombi2_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+                {
+                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+                    {
+                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
+                    }
+                }
+
+                private void kombi1_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+                {
+
+                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+                    {
+                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
+                    }
+                }
+         */
         private void zmien_znak(object sender, EventArgs e)
-        {
+        {   
+
             znaczek %= 2;
             if (pierwszyON)
-            {
-                buttom_znak.Text = (znaczek==0 ? "+" : "-") ;
+            {   
+                buttom_znak.Text = (znaczek == 0 ? "+" : "-");                
             }
             if (drugiON)
             {
@@ -175,49 +176,66 @@ namespace wkurw
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
 
-                kombi3.Visibility = ViewStates.Gone; //kombi
+                //kombi3.Visibility = ViewStates.Visible; //kombi
             }
             else
             {
                 buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
 
-                kombi3.Visibility = ViewStates.Visible; // kombi
+                //kombi3.Visibility = ViewStates.Gone; // kombi
             }
         }
 
         private void oblicz_click (object sender, EventArgs e)
         {
-            if (!pierwszyON && !drugiON)
+            if (txt1.Text != "")
             {
-                txt_wynik.Text = string.Format("wynik: {0}", txt1.Text);
-            }
-            if (pierwszyON)
-            {
-                switch (buttom_znak.Text)
+                if (kombi1.SelectedItemPosition != 0 && kombi3.SelectedItemPosition != 0)
                 {
-                    case "+" :
-                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text)); break;
-                    case "-" :
-                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text)); break;
-                    default:
-                        txt_wynik.Text = "Ustal znak"; break;
-                }
-            }
-            if (drugiON)
-            {
-                switch (buttom_znak.Text)
-                {
-                    case "x":
-                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) * double.Parse(txt2.Text)); break;
-                    case "/":
-                        txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) / double.Parse(txt2.Text)); break;
-                    default:
-                        txt_wynik.Text = "Ustal znak"; break;
-                }
+                    if (!pierwszyON && !drugiON)
+                    {
 
+                        if (kombi1.SelectedItemPosition == kombi3.SelectedItemPosition)
+                        {
+                            txt_wynik.Text = string.Format("wynik: {0}", txt1.Text);
+                        }
+                    }
+                    if (pierwszyON)
+                    {
+                        switch (buttom_znak.Text)
+                        {
+                            case "+":
+                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text)); break;
+                            case "-":
+                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text)); break;
+                            default:
+                                txt_wynik.Text = "Ustal znak"; break;
+                        }
+                    }
+                    if (drugiON)
+                    {
+                        switch (buttom_znak.Text)
+                        {
+                            case "x":
+                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) * double.Parse(txt2.Text)); break;
+                            case "/":
+                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) / double.Parse(txt2.Text)); break;
+                            default:
+                                txt_wynik.Text = "Ustal znak"; break;
+                        }
+
+                    }
+                }
+                else
+                {
+                    Toast.MakeText(this, "wybierz walute ", ToastLength.Short).Show();
+                }
             }
-            
+            else
+            {
+                Toast.MakeText(this, "podaj kwote ", ToastLength.Short).Show();
+            }
         }
     }
 }
