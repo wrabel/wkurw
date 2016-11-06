@@ -159,6 +159,7 @@ namespace wkurw
             {
                 buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
+                txt2.Text = "";
                 kombi2.Visibility = ViewStates.Gone; //kombi
             }
         }
@@ -182,6 +183,7 @@ namespace wkurw
             {
                 buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
+                txt2.Text = "";
 
                 //kombi3.Visibility = ViewStates.Gone; // kombi
             }
@@ -193,6 +195,17 @@ namespace wkurw
             {
                 if (kombi1.SelectedItemPosition != 0 && kombi3.SelectedItemPosition != 0)
                 {
+                    var exchangewebservice = new ExchangeWebService();
+                    var rate_from_1 = (kombi1.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
+                        (
+                        kombi1.SelectedItem.ToString(),
+                        kombi3.SelectedItem.ToString()
+                        ) : 1);
+                    var kwota_z_1 = double.Parse(txt1.Text);
+                    var exchange_z_1 = kwota_z_1 * rate_from_1;
+
+                    
+
                     if (!pierwszyON && !drugiON)
                     {
                         if (kombi1.SelectedItemPosition == kombi3.SelectedItemPosition)
@@ -201,43 +214,56 @@ namespace wkurw
                         }
                         else
                         {
-                            var exchangeWebService = new ExchangeWebService();
-                            var baseCurrency = kombi1.SelectedItem.ToString();
-                            var destCurrency = kombi3.SelectedItem.ToString();
-                            var rate = await exchangeWebService.GetSingleRate
-                                (
-                                baseCurrency,
-                                destCurrency
-                                );
-                            var kwota_z = Convert.ToInt32(txt1.Text);
-                            var exchange = kwota_z * rate;
-                            txt_wynik.Text = string.Format("wynik: {0}", exchange);
+                            txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1);
                         }
                     }
                     if (pierwszyON)
                     {
-                        switch (buttom_znak.Text)
+                        if (txt2.Text == "")
                         {
-                            case "+":
-                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) + double.Parse(txt2.Text)); break;
-                            case "-":
-                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) - double.Parse(txt2.Text)); break;
-                            default:
-                                txt_wynik.Text = "Ustal znak"; break;
+                            Toast.MakeText(this, "podaj 2 nominal", ToastLength.Short).Show();
                         }
+                        else
+                        {
+                            var exchangewebservice2 = new ExchangeWebService();
+                            var rate_from_2 = (kombi2.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
+                        (
+                        kombi2.SelectedItem.ToString(),
+                        kombi3.SelectedItem.ToString()
+                        ) : 1);
+                            var kwota_z_2 = double.Parse(txt2.Text);
+                            var exchane_z_2 = kwota_z_2 * rate_from_2;
+
+                            switch (buttom_znak.Text)
+                            {
+                                case "+":
+                                    txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 + exchane_z_2); break;
+                                case "-":
+                                    txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 - exchane_z_2); break;
+                                default:
+                                    txt_wynik.Text = "Ustal znak"; break;
+                            }
+                        }
+                        
                     }
                     if (drugiON)
                     {
-                        switch (buttom_znak.Text)
+                        if (txt2.Text == "")
                         {
-                            case "x":
-                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) * double.Parse(txt2.Text)); break;
-                            case "/":
-                                txt_wynik.Text = string.Format("wynik: {0}", double.Parse(txt1.Text) / double.Parse(txt2.Text)); break;
-                            default:
-                                txt_wynik.Text = "Ustal znak"; break;
+                            Toast.MakeText(this, "podaj liczbe", ToastLength.Short).Show();
                         }
-
+                        else
+                        {
+                            switch (buttom_znak.Text)
+                            {
+                                case "x":
+                                    txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 * double.Parse(txt2.Text)); break;
+                                case "/":
+                                    txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 / double.Parse(txt2.Text)); break;
+                                default:
+                                    txt_wynik.Text = "Ustal znak"; break;
+                            }
+                        }
                     }
                 }
                 else
