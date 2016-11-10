@@ -78,11 +78,11 @@ namespace wkurw
             kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
-            
- /*           kombi1.ItemSelected += kombi1_selected;
-            kombi2.ItemSelected += kombi1_selected;
-            kombi3.ItemSelected += kombi1_selected;
-            */
+
+            /*           kombi1.ItemSelected += kombi1_selected;
+                       kombi2.ItemSelected += kombi1_selected;
+                       kombi3.ItemSelected += kombi1_selected;
+                       */
             pierwszyON = false;
             drugiON = false;
             buttom_ob.Click += oblicz_click;
@@ -99,6 +99,10 @@ namespace wkurw
             switch2.CheckedChange += visible_of_second;
 
 }
+            private void cos()
+        {
+
+        }
         /*
                 private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
                 {
@@ -197,10 +201,7 @@ namespace wkurw
                 {
                     var exchangewebservice = new ExchangeWebService();
                     var rate_from_1 = (kombi1.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
-                        (
-                        kombi1.SelectedItem.ToString(),
-                        kombi3.SelectedItem.ToString()
-                        ) : 1);
+                        (kombi1.SelectedItem.ToString(),kombi3.SelectedItem.ToString()) : 1);
                     var kwota_z_1 = double.Parse(txt1.Text);
                     var exchange_z_1 = kwota_z_1 * rate_from_1;
 
