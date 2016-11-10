@@ -21,9 +21,10 @@ namespace wkurw
         private Switch switch1,switch2; 
         private EditText txt1, txt2;
         bool pierwszyON, drugiON ;
-        private int znaczek;
+        private int znaczek,ilosc_walut = 33;
 
         private Spinner kombi1, kombi2,kombi3; //kombi 
+
 
 
 
@@ -48,41 +49,23 @@ namespace wkurw
             kombi2 = FindViewById<Spinner>(Resource.Id.txt_kombi_2);
             kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
 
-            var kombi_1 = new string[]
+            
+            var kombi_1 = new string[ilosc_walut];
+            kombi_1[0] = "wybierz walute:";
+            int i = 1;
+            foreach( var iteam in walut_lista.Items)
             {
-                "wybierz walute:",
-                "PLN",
-                "USD", //dolar
-                "EUR", //eoru
-                "JPY" //japonski jen :D
-            };
-            /*
-                        var kombi_2 = new string[]
-                        {
-                            "wybierz walute:",
-                            "PLN",
-                            "USD", //dolar
-                            "EUR", //eoru
-                            "JPY" //japonski jen :D
-                        };
+                kombi_1[i++] = iteam.SC;
+            }
 
-                        var kombi_3 = new string[]
-                        {
-                            "wybierz walute:",
-                            "PLN",
-                            "USD", //dolar
-                            "EUR", //eoru
-                            "JPY" //japonski jen :D
-                        };
-            */
             kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
 
-            /*           kombi1.ItemSelected += kombi1_selected;
-                       kombi2.ItemSelected += kombi1_selected;
-                       kombi3.ItemSelected += kombi1_selected;
-                       */
+            kombi1.ItemSelected += kombi_selected;
+            kombi2.ItemSelected += kombi_selected;
+            kombi3.ItemSelected += kombi_selected;
+                     
             pierwszyON = false;
             drugiON = false;
             buttom_ob.Click += oblicz_click;
@@ -99,36 +82,27 @@ namespace wkurw
             switch2.CheckedChange += visible_of_second;
 
 }
-            private void cos()
-        {
 
-        }
+        
+                private void kombi_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+                {
+                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+                    {
+                        var wybor = walut_lista.Items[e.Position - 1];
+                        Toast.MakeText(this, "wybrales: " + wybor.e_nazwa, ToastLength.Short).Show();
+                    }
+                }
+
         /*
-                private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-                {
-                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-                    {
-                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
-                    }
-                }
+                        private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
+                        {
 
-                private void kombi2_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-                {
-                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-                    {
-                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show();
-                    }
-                }
-
-                private void kombi1_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-                {
-
-                    if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-                    {
-                        Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
-                    }
-                }
-         */
+                            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
+                            {
+                                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
+                            }
+                        }
+                */
         private void zmien_znak(object sender, EventArgs e)
         {   
 
