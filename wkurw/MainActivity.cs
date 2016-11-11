@@ -11,7 +11,8 @@ namespace wkurw
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity
     {
-        string left1 = "Hello Word", left2 = "Kalkulator";
+        //deklaracja widoku
+        private string left1 = "Hello Word", left2 = "Kalkulator";
         DrawerLayout mDrawerLayout;
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
@@ -30,6 +31,8 @@ namespace wkurw
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Main);
+
+            
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
             mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
 

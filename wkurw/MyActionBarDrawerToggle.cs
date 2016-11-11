@@ -23,8 +23,8 @@ namespace wkurw
         {
             mActivity = activity;
         }
-
-        public override void OnDrawerOpened(Android.Views.View drawerView)
+        //otwieranie menu
+        public override void OnDrawerOpened(View drawerView)
         {
             int drawerType = (int)drawerView.Tag;
             if (drawerType == 0)
@@ -34,8 +34,8 @@ namespace wkurw
 
             }
         }
-
-        public override void OnDrawerClosed(Android.Views.View drawerView)
+        //zamykanie menu
+        public override void OnDrawerClosed(View drawerView)
         {
             int drawerType = (int)drawerView.Tag;
             if (drawerType == 0)
@@ -45,8 +45,8 @@ namespace wkurw
             }
             
         }
-
-        public override void OnDrawerSlide(Android.Views.View drawerView, float slideOffset)
+        //zammienosc menus
+        public override void OnDrawerSlide(View drawerView, float slideOffset)
         {
             int drawerType = (int)drawerView.Tag;
             if (drawerType == 0)

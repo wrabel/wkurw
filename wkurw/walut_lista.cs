@@ -1,20 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace wkurw
 {
     public sealed class walut_lista
     {
-		private static List<waluty> _items = null;
+        private static List<waluty> _items = null;
 
         public static List<waluty> Items
         {
@@ -61,12 +51,5 @@ namespace wkurw
                 return _items;
             }
         }
-  /*     public static waluty FromAbbreviation(string abbreviation)
-        {
-            var q = from item in _items
-                    where item.SC == abbreviation
-                    select item;
-            return q.FirstOrDefault();
-        }*/
     }
 }

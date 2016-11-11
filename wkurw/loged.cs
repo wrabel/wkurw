@@ -12,7 +12,7 @@ using Android.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
 
-
+// tu bedzie widok po zalogowaniu jeszcze brak pomyslow
 namespace wkurw
 {
     [Activity(Label = "loged")]

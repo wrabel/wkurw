@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 
 //using System.Diagnostics;
-
+//klasa zaporzyczona z internetu 
 namespace wkurw
 {
     public class ExchangeWebService
