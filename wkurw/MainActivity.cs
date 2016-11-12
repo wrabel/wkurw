@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
 using Android.Content;
+using Android.Views.InputMethods;
 namespace wkurw
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
@@ -17,6 +18,7 @@ namespace wkurw
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
         ListView mLeftDrawer;
+        RelativeLayout mrelative;
 
         List<string> mRightItems = new List<string>();
         ArrayAdapter mRightAdapter;
@@ -32,6 +34,8 @@ namespace wkurw
 
             SetContentView(Resource.Layout.Main);
 
+            mrelative = FindViewById<RelativeLayout>(Resource.Id.mainView);
+            mrelative.Click += Mrelative_Click;
             
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
             mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
@@ -65,6 +69,12 @@ namespace wkurw
             mRightDrawer.ItemClick += mRightDrawer_ItemClickShort;
             mRightDrawer.ItemLongClick += mRightDrawer_ItemClickLong;
 
+        }
+
+        private void Mrelative_Click(object sender, System.EventArgs e)
+        {
+            InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
+            inmutManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
         }
 
         protected void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)

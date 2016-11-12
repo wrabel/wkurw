@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Views.InputMethods;
 
 
 namespace wkurw
@@ -17,6 +18,7 @@ namespace wkurw
     public class activityCalculator : Activity
     {
         //wstepna deklaracaj widoku
+        RelativeLayout mrelativ;
         private Button buttom_ob,buttom_znak;
         private TextView txt_wynik;
         private Switch switch1,switch2; 
@@ -39,6 +41,9 @@ namespace wkurw
 
             ActionBar.Title = " Oblicze za ciebie ;] ";
             ActionBar.SetDisplayShowTitleEnabled(true);
+
+            mrelativ = FindViewById<RelativeLayout>(Resource.Id.m_View);
+            mrelativ.Click += Mrelativ_Click;
 
             buttom_ob = FindViewById<Button>(Resource.Id.button_oblicz);
             buttom_znak = FindViewById<Button>(Resource.Id.button_znak);
@@ -88,6 +93,12 @@ namespace wkurw
 
 
 }
+
+        private void Mrelativ_Click(object sender, EventArgs e)
+        {
+            InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
+            inmutManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
+        }
 
 
         //instrukcja dzialan funkcji "wybor z listy kombi" -> wyswitla pelna angielska nazwe danej waluty
