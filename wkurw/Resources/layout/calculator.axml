@@ -20,6 +20,8 @@
             android:layout_marginBottom="20dp">
             <EditText
                 android:inputType="numberDecimal"
+                android:hint="Podaj kwote"
+                android:gravity="center"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_waluta_1"
@@ -72,6 +74,8 @@
                 android:layout_marginBottom="40dp">
                 <EditText xmlns:tools="http://schemas.android.com/tools"
                     android:inputType="numberDecimal"
+                    android:hint="Podaj kwote"
+                    android:gravity="center"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:id="@+id/txt_waluta_2"

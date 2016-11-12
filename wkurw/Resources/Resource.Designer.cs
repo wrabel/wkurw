@@ -136,10 +136,10 @@ namespace wkurw
 			public const int txtClicer = 2131165203;
 			
 			// aapt resource value: 0x7f070018
-			public const int txtPassword = 2131165208;
+			public const int txtUserMail = 2131165208;
 			
 			// aapt resource value: 0x7f070017
-			public const int txtUserMail = 2131165207;
+			public const int txtUserNick = 2131165207;
 			
 			// aapt resource value: 0x7f070007
 			public const int txt_kombi_1 = 2131165191;
