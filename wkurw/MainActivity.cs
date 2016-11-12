@@ -7,6 +7,9 @@ using Android.Widget;
 using System.Collections.Generic;
 using Android.Content;
 using Android.Views.InputMethods;
+using Android.Util;
+using System;
+
 namespace wkurw
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
@@ -18,6 +21,7 @@ namespace wkurw
         List<string> mLeftItems = new List<string>();
         ArrayAdapter mLeftAdapter;
         ListView mLeftDrawer;
+
         RelativeLayout mrelative;
 
         List<string> mRightItems = new List<string>();
@@ -26,7 +30,13 @@ namespace wkurw
 
         ActionBarDrawerToggle mDrawerToggle;
 
-       
+
+
+        Button btnLogin;
+        DataBase db;
+     //   ListView lstData;
+        List<Person> lstSource = new List<Person>();
+        EditText txt_nick, txt_email;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -36,7 +46,7 @@ namespace wkurw
 
             mrelative = FindViewById<RelativeLayout>(Resource.Id.mainView);
             mrelative.Click += Mrelative_Click;
-            
+
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
             mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
 
@@ -69,8 +79,72 @@ namespace wkurw
             mRightDrawer.ItemClick += mRightDrawer_ItemClickShort;
             mRightDrawer.ItemLongClick += mRightDrawer_ItemClickLong;
 
+
+            //Create DataBase
+            db = new DataBase();
+            db.createDataBase();
+            string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            Log.Info("DB_PATH", folder);
+
+       //     lstData = FindViewById<ListView>(Resource.Id.listView);
+
+            txt_nick = FindViewById<EditText>(Resource.Id.txtUserNick);
+            txt_email = FindViewById<EditText>(Resource.Id.txtUserMail);
+            btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
+
+            //LoadData base
+            //      LoadData();
+
+            btnLogin.Click += BtnLogin_Click;
+
+
+
         }
 
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            
+                if (txt_nick.Text != "" && txt_email.Text != "")
+                {
+
+                    Person person = new Person()
+                    {
+                        Nick = txt_nick.Text,
+                        Email = txt_email.Text,
+                        data = string.Format("{0}/{1}/{2} {3}:{4}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute)
+                    };
+                    db.insertIntoTablePerson(person);
+                    // LoadData();
+                    Intent intent = new Intent(this, typeof(loged));
+                    this.StartActivity(intent);
+
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    AlertDialog alerDialog = builder.Create();
+                    alerDialog.SetTitle("Witaj !");
+                    alerDialog.SetIcon(Resource.Drawable.user_);
+                    alerDialog.SetMessage("Logujesz sie jako Gość");
+                    alerDialog.SetButton("OK", (s, ev) =>
+                    {
+                        Intent intent2 = new Intent(this, typeof(loged));
+                        this.StartActivity(intent2);
+                    });
+                    alerDialog.SetButton2("anuluj" ,(s,ev) => {});
+                    alerDialog.Show();
+                }
+            
+        }
+
+        /*
+       private void LoadData()
+       {
+           lstSource = db.selectTablePerson();
+           var adapter = new ListViewAdapter(this, lstSource);
+      //     lstData.Adapter = adapter;
+       }
+       */
         private void Mrelative_Click(object sender, System.EventArgs e)
         {
             InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
