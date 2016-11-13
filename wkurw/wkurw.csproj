@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="activityCalculator.cs" />
     <Compile Include="activityClicer.cs" />
+    <Compile Include="activityRegEdit.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="ExchangeWebService.cs" />
     <Compile Include="Fixer.cs" />
@@ -120,6 +121,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\list_view_data.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\reg_editable.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

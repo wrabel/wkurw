@@ -87,6 +87,12 @@ namespace wkurw
 			// aapt resource value: 0x7f070016
 			public const int MyClicer = 2131165206;
 			
+			// aapt resource value: 0x7f070025
+			public const int btnDelete = 2131165221;
+			
+			// aapt resource value: 0x7f070024
+			public const int btnEdit = 2131165220;
+			
 			// aapt resource value: 0x7f07001e
 			public const int btnLogin = 2131165214;
 			
@@ -101,6 +107,15 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f070001
 			public const int content_frame2 = 2131165185;
+			
+			// aapt resource value: 0x7f070023
+			public const int e_Email = 2131165219;
+			
+			// aapt resource value: 0x7f070022
+			public const int e_Name = 2131165218;
+			
+			// aapt resource value: 0x7f070026
+			public const int e_listView = 2131165222;
 			
 			// aapt resource value: 0x7f070020
 			public const int leftList = 2131165216;
@@ -135,8 +150,8 @@ namespace wkurw
 			// aapt resource value: 0x7f070003
 			public const int rightList2 = 2131165187;
 			
-			// aapt resource value: 0x7f070022
-			public const int support = 2131165218;
+			// aapt resource value: 0x7f070027
+			public const int support = 2131165223;
 			
 			// aapt resource value: 0x7f070009
 			public const int switch_dodac_odjac = 2131165193;
@@ -210,6 +225,9 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f030004
 			public const int Main = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int reg_editable = 2130903045;
 			
 			static Layout()
 			{

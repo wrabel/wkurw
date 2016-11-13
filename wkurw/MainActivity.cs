@@ -34,7 +34,6 @@ namespace wkurw
 
         Button btnLogin;
         DataBase db;
-     //   ListView lstData;
         List<Person> lstSource = new List<Person>();
         EditText txt_nick, txt_email;
 
@@ -50,6 +49,10 @@ namespace wkurw
             mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
             mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
 
+            mRightItems.Add("RegEdit");
+            mRightItems.Add("");
+            mRightItems.Add("");
+            mRightItems.Add("");
             mRightItems.Add("support us");
             mRightItems.Add("exit");
 
@@ -85,15 +88,12 @@ namespace wkurw
             db.createDataBase();
             string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             Log.Info("DB_PATH", folder);
-
-       //     lstData = FindViewById<ListView>(Resource.Id.listView);
+            
 
             txt_nick = FindViewById<EditText>(Resource.Id.txtUserNick);
             txt_email = FindViewById<EditText>(Resource.Id.txtUserMail);
             btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
 
-            //LoadData base
-            //      LoadData();
 
             btnLogin.Click += BtnLogin_Click;
 
@@ -104,47 +104,41 @@ namespace wkurw
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             
-                if (txt_nick.Text != "" && txt_email.Text != "")
+                if (txt_nick.Text == "" && txt_email.Text == "")
                 {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerDialog = builder.Create();
+                alerDialog.SetTitle("Witaj !");
+                alerDialog.SetIcon(Resource.Drawable.user_);
+                alerDialog.SetMessage("Logujesz sie jako Gość");
+                alerDialog.SetButton("OK", (s, ev) =>
+                {
+                    Intent intent2 = new Intent(this, typeof(loged));
+                    this.StartActivity(intent2);
+                    this.Finish();
+                });
+                alerDialog.SetButton2("anuluj", (s, ev) => { });
+                alerDialog.Show();
 
-                    Person person = new Person()
-                    {
-                        Nick = txt_nick.Text,
-                        Email = txt_email.Text,
-                        data = string.Format("{0}/{1}/{2} {3}:{4}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute)
-                    };
-                    db.insertIntoTablePerson(person);
-                    // LoadData();
-                    Intent intent = new Intent(this, typeof(loged));
-                    this.StartActivity(intent);
+              
 
                 }
                 else
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    AlertDialog alerDialog = builder.Create();
-                    alerDialog.SetTitle("Witaj !");
-                    alerDialog.SetIcon(Resource.Drawable.user_);
-                    alerDialog.SetMessage("Logujesz sie jako Gość");
-                    alerDialog.SetButton("OK", (s, ev) =>
-                    {
-                        Intent intent2 = new Intent(this, typeof(loged));
-                        this.StartActivity(intent2);
-                    });
-                    alerDialog.SetButton2("anuluj" ,(s,ev) => {});
-                    alerDialog.Show();
-                }
+                Person person = new Person()
+                {
+                    Nick = txt_nick.Text,
+                    Email = txt_email.Text,
+                    data = string.Format("{0}/{1}/{2} {3}:{4}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute)
+                };
+                db.insertIntoTablePerson(person);
+                Intent intent = new Intent(this, typeof(loged));
+                this.StartActivity(intent);
+                this.Finish();
+            }
             
         }
 
-        /*
-       private void LoadData()
-       {
-           lstSource = db.selectTablePerson();
-           var adapter = new ListViewAdapter(this, lstSource);
-      //     lstData.Adapter = adapter;
-       }
-       */
         private void Mrelative_Click(object sender, System.EventArgs e)
         {
             InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
@@ -161,6 +155,9 @@ namespace wkurw
             string iteam = mRightItems[e.Position];
             switch (iteam)
             {
+                case "RegEdit":
+                    Intent intentt = new Intent(this, typeof(activityRegEdit));
+                    this.StartActivity(intentt); break;
                 case "support us":
                     Finish(); break;
                 case "exit":
