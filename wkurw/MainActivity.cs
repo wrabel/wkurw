@@ -146,7 +146,7 @@ namespace wkurw
         }
 
         protected void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
-        {
+        { 
             Toast.MakeText(this, "krotki opis: " + mRightItems[e.Position],ToastLength.Short).Show();
         }
 

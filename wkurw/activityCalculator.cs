@@ -24,7 +24,7 @@ namespace wkurw
         private Switch switch1,switch2; 
         private EditText txt1, txt2;
         bool pierwszyON, drugiON ;
-        private int znaczek,ilosc_walut = 33;
+        private int znaczek;
 
         private Spinner kombi1, kombi2,kombi3; //kombi 
 
@@ -58,7 +58,7 @@ namespace wkurw
             kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
 
             //towrzenie tablicy stringow wykorzystawane w polach kobi (spinner)
-            var kombi_1 = new string[ilosc_walut];
+            var kombi_1 = new string[walut_lista.Items.Count+1];
             kombi_1[0] = "wybierz walute:";
             int i = 1;
             foreach( var iteam in walut_lista.Items)
@@ -110,18 +110,6 @@ namespace wkurw
                         Toast.MakeText(this, "wybrales: " + wybor.e_nazwa, ToastLength.Short).Show();
                     }
                 }
-
-        /*
-                        private void kombi3_selected(object sender, AdapterView.ItemSelectedEventArgs e)
-                        {
-
-                            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
-                            {
-                                Toast.MakeText(this, "wybrales: " + e.Parent.GetItemAtPosition(e.Position).ToString(), ToastLength.Short).Show(); 
-                            }
-                        }
-                */
-
 
         private void zmien_znak(object sender, EventArgs e) // zmienianie znaku po nacisnieciu buttom_znak
         {   
@@ -216,7 +204,6 @@ namespace wkurw
                         }
                         else // analogiczna bazowa operacja kalkulatora dla pola wartosci i kombi2 (wartosci wejsciowych 2) i waluty wyjsicowej
                         {
-                            var exchangewebservice2 = new ExchangeWebService();
                             var rate_from_2 = (kombi2.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
                         (
                         kombi2.SelectedItem.ToString(),
