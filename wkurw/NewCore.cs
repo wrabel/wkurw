@@ -15,13 +15,13 @@ namespace wkurw
 {
     public class NewCore
     {
-        public static async Task<NewDataExchange> PobierzDane (string pierwszy, string drugi)
+        public static async Task<Fixer> PobierzDane (string pierwszy, string drugi)
         {
             dynamic result = await NewExchange.getDataFromWeb(pierwszy, drugi).ConfigureAwait(false);
 
             if (result["date"]!= null)
             {
-                NewDataExchange data = new NewDataExchange();
+                Fixer data = new Fixer();
                 data.Date = (string)result["date"];
                 data.BaseCurrency = (string)result["base"];
                 data.Rates = (Dictionary<string, string>)result["rates"];

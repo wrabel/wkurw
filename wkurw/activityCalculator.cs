@@ -173,15 +173,13 @@ namespace wkurw
             {
                 if (kombi1.SelectedItemPosition != 0 && kombi3.SelectedItemPosition != 0)  // -> sprawdza czy w polu kombi1 (wejsciowym) i kombi3(wyjsciowym) sa wybrane waluty, jesli nie kaze wybrac walute
                 {
-                    NewDataExchange newdata = await NewCore.PobierzDane(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
-                    var rate_from_1 = double.Parse(newdata.Rates[kombi3.SelectedItem.ToString()]);
+                    var rate_from_1 = await NewExchange.getDataFromWeb(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
                     //podstawowe wyliczenia / bazowa operacja kalkulatora walut
                     //var exchangewebservice = new ExchangeWebService();  // i gdzies tu w ponizszych dwoch linijkach jest blad ;/
                     //var rate_from_1 = (kombi1.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate // jezeli wybrane waluty roznia sie wysyla zapytanie do api i zwraca otrzymany przelicznik
                     //    (kombi1.SelectedItem.ToString(),kombi3.SelectedItem.ToString()) : 1);  // natomiast jesli sa takie same waluty , by zaoszczedzic na czasie oczekiwania, zwraca 1 (bez zapytan do api) 
                     var kwota_z_1 = double.Parse(txt1.Text); // nie jest potrzebne ale ladniej wyglada -> przypisanie zmiennej wartosci z pola z pierwsza kwota (wejsciowa)
                     var exchange_z_1 = kwota_z_1 * rate_from_1; // wyliczanie wyniku -> kwota * przelicznik
-
                     
 
                     if (!pierwszyON && !drugiON) // sprawdza czy oba switche sa wylaczone 
@@ -196,8 +194,9 @@ namespace wkurw
                         }
                         else // analogiczna bazowa operacja kalkulatora dla pola wartosci i kombi2 (wartosci wejsciowych 2) i waluty wyjsicowej
                         {
-                            NewDataExchange newdata2 = await NewCore.PobierzDane(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
-                            var rate_from_2 = double.Parse(newdata2.Rates[kombi3.SelectedItem.ToString()]);//    var rate_from_2 = (kombi2.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
+
+                            var rate_from_2 = await NewExchange.getDataFromWeb(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                            //    var rate_from_2 = (kombi2.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
                             //(
                             //kombi2.SelectedItem.ToString(),
                             //kombi3.SelectedItem.ToString()

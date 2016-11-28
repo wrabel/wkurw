@@ -10,15 +10,15 @@ namespace wkurw
         {
             HttpClient client = new HttpClient();
             var response = await client.GetAsync ("http://api.fixer.io/latest?base=" + baseCurrency + "&symbols=" + destCurrency);
-            dynamic data = null;
 
             if (response != null)
             {
-                string json = response.Content.ReadAsStringAsync().Result;
-                data = JsonConvert.DeserializeObject(json);
-                
+                var rates = JsonConvert.DeserializeObject<Fixer>(await response.Content.ReadAsStringAsync());
+                var exchange = rates.Rates[destCurrency];
+                return double.Parse(exchange);
+
             }
-            return data;
+            return 0 ;
         }
     }
 }
