@@ -1,5 +1,3 @@
-
-
 namespace wkurw
 {
     public class waluty
