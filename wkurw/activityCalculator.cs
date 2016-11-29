@@ -167,13 +167,15 @@ namespace wkurw
             }
         }
 
-        private async void oblicz_click(object sender, EventArgs e) // cala funkcjia liczaca po kliknieciu (tutaj sa problemy)
+        private void oblicz_click(object sender, EventArgs e) // cala funkcjia liczaca po kliknieciu (tutaj sa problemy)
         {
             if (txt1.Text != "") // -> sprawdza czy pierwsze pole nie jest puste, jesli jest kaze podac kwote do zamiany
             {
                 if (kombi1.SelectedItemPosition != 0 && kombi3.SelectedItemPosition != 0)  // -> sprawdza czy w polu kombi1 (wejsciowym) i kombi3(wyjsciowym) sa wybrane waluty, jesli nie kaze wybrac walute
                 {
-                    var rate_from_1 = await NewExchange.getDataFromWeb(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                    var CurrencyDara = new FreeCurrencyServise();
+                    var rate_from_1 = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                    //var rate_from_1 = await NewExchange.getDataFromWeb(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
                     //podstawowe wyliczenia / bazowa operacja kalkulatora walut
                     //var exchangewebservice = new ExchangeWebService();  // i gdzies tu w ponizszych dwoch linijkach jest blad ;/
                     //var rate_from_1 = (kombi1.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate // jezeli wybrane waluty roznia sie wysyla zapytanie do api i zwraca otrzymany przelicznik
@@ -194,8 +196,8 @@ namespace wkurw
                         }
                         else // analogiczna bazowa operacja kalkulatora dla pola wartosci i kombi2 (wartosci wejsciowych 2) i waluty wyjsicowej
                         {
-
-                            var rate_from_2 = await NewExchange.getDataFromWeb(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                            var rate_from_2 = CurrencyDara.GetDataFromService(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                            //var rate_from_2 = await NewExchange.getDataFromWeb(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
                             //    var rate_from_2 = (kombi2.SelectedItem.ToString() != kombi3.SelectedItem.ToString() ? await exchangewebservice.GetSingleRate
                             //(
                             //kombi2.SelectedItem.ToString(),
