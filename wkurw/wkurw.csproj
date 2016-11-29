@@ -55,6 +55,7 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -109,6 +110,9 @@
     <Compile Include="loged.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MyActionBarDrawerToggle.cs" />
+    <Compile Include="NewCore.cs" />
+    <Compile Include="NewDataExchange.cs" />
+    <Compile Include="NewExchange.cs" />
     <Compile Include="Resources\Model\Person.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
