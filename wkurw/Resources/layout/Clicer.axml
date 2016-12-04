@@ -34,5 +34,16 @@
         android:text="@string/Hello"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="95.5dp" />
+        android:layout_marginBottom="5dp" />
+    <Button xmlns:tools="http://schemas.android.com/tools"
+        android:text="RESET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_res"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        android:layout_marginTop="55dp" />
 </LinearLayout>
