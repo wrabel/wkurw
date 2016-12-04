@@ -1,16 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Timers;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using Android.Content.Res;
-using Android.Support.V4.App;
+using Android.Views;
 
 namespace wkurw
 {
@@ -18,7 +11,7 @@ namespace wkurw
     [Activity(Label = "activityClicer")]
     public class activityClicer : Activity
     {
-        private Button MyClicer;
+        private Button MyClicer,RES;
         private TextView txtCD;
         private int count = 10;
         private int clicks = 0;
@@ -36,10 +29,19 @@ namespace wkurw
 
             MyClicer = FindViewById<Button>(Resource.Id.MyClicer);
             txtCD = FindViewById<TextView>(Resource.Id.txtCD);
+            RES = FindViewById<Button>(Resource.Id.button_res);
+            RES.Click += RES_Click;
+
+            RES.Visibility = ViewStates.Gone;
             MyClicer.Click += MyClicer_Click;
             timer = new Timer();
             timer.Interval = 1000;
             timer.Elapsed += OnTimedEvent;
+        }
+
+        private void RES_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void MyClicer_Click(object sender, EventArgs e)
