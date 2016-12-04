@@ -78,8 +78,8 @@ namespace wkurw
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07001a
-			public const int Drawer = 2131165210;
+			// aapt resource value: 0x7f07001b
+			public const int Drawer = 2131165211;
 			
 			// aapt resource value: 0x7f070000
 			public const int Drawer2 = 2131165184;
@@ -87,38 +87,41 @@ namespace wkurw
 			// aapt resource value: 0x7f070016
 			public const int MyClicer = 2131165206;
 			
+			// aapt resource value: 0x7f070026
+			public const int btnDelete = 2131165222;
+			
 			// aapt resource value: 0x7f070025
-			public const int btnDelete = 2131165221;
+			public const int btnEdit = 2131165221;
 			
-			// aapt resource value: 0x7f070024
-			public const int btnEdit = 2131165220;
-			
-			// aapt resource value: 0x7f07001e
-			public const int btnLogin = 2131165214;
+			// aapt resource value: 0x7f07001f
+			public const int btnLogin = 2131165215;
 			
 			// aapt resource value: 0x7f070013
 			public const int button_oblicz = 2131165203;
 			
+			// aapt resource value: 0x7f070017
+			public const int button_res = 2131165207;
+			
 			// aapt resource value: 0x7f07000c
 			public const int button_znak = 2131165196;
 			
-			// aapt resource value: 0x7f07001f
-			public const int checkBox1 = 2131165215;
+			// aapt resource value: 0x7f070020
+			public const int checkBox1 = 2131165216;
 			
 			// aapt resource value: 0x7f070001
 			public const int content_frame2 = 2131165185;
 			
+			// aapt resource value: 0x7f070024
+			public const int e_Email = 2131165220;
+			
 			// aapt resource value: 0x7f070023
-			public const int e_Email = 2131165219;
+			public const int e_Name = 2131165219;
 			
-			// aapt resource value: 0x7f070022
-			public const int e_Name = 2131165218;
+			// aapt resource value: 0x7f070027
+			public const int e_listView = 2131165223;
 			
-			// aapt resource value: 0x7f070026
-			public const int e_listView = 2131165222;
-			
-			// aapt resource value: 0x7f070020
-			public const int leftList = 2131165216;
+			// aapt resource value: 0x7f070021
+			public const int leftList = 2131165217;
 			
 			// aapt resource value: 0x7f070002
 			public const int leftList2 = 2131165186;
@@ -141,17 +144,17 @@ namespace wkurw
 			// aapt resource value: 0x7f070005
 			public const int m_View = 2131165189;
 			
-			// aapt resource value: 0x7f07001b
-			public const int mainView = 2131165211;
+			// aapt resource value: 0x7f07001c
+			public const int mainView = 2131165212;
 			
-			// aapt resource value: 0x7f070021
-			public const int rightList = 2131165217;
+			// aapt resource value: 0x7f070022
+			public const int rightList = 2131165218;
 			
 			// aapt resource value: 0x7f070003
 			public const int rightList2 = 2131165187;
 			
-			// aapt resource value: 0x7f070027
-			public const int support = 2131165223;
+			// aapt resource value: 0x7f070028
+			public const int support = 2131165224;
 			
 			// aapt resource value: 0x7f070009
 			public const int switch_dodac_odjac = 2131165193;
@@ -159,14 +162,14 @@ namespace wkurw
 			// aapt resource value: 0x7f07000a
 			public const int switch_dziel_mnoz = 2131165194;
 			
-			// aapt resource value: 0x7f070017
-			public const int textView1 = 2131165207;
-			
 			// aapt resource value: 0x7f070018
-			public const int textView2 = 2131165208;
+			public const int textView1 = 2131165208;
 			
 			// aapt resource value: 0x7f070019
-			public const int textView3 = 2131165209;
+			public const int textView2 = 2131165209;
+			
+			// aapt resource value: 0x7f07001a
+			public const int textView3 = 2131165210;
 			
 			// aapt resource value: 0x7f070015
 			public const int txtCD = 2131165205;
@@ -174,11 +177,11 @@ namespace wkurw
 			// aapt resource value: 0x7f070014
 			public const int txtClicer = 2131165204;
 			
-			// aapt resource value: 0x7f07001d
-			public const int txtUserMail = 2131165213;
+			// aapt resource value: 0x7f07001e
+			public const int txtUserMail = 2131165214;
 			
-			// aapt resource value: 0x7f07001c
-			public const int txtUserNick = 2131165212;
+			// aapt resource value: 0x7f07001d
+			public const int txtUserNick = 2131165213;
 			
 			// aapt resource value: 0x7f070008
 			public const int txt_kombi_1 = 2131165192;
