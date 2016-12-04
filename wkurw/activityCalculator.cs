@@ -181,6 +181,13 @@ namespace wkurw
                 return;
             }
 
+            if (txt1.Text.StartsWith(".") || txt1.Text.StartsWith(","))
+            {
+                Toast.MakeText(this, "zapomniales zera", ToastLength.Short).Show();
+                return;
+            }
+            var pierwszy_txt = txt1.Text.Replace(".", ",");
+
             if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
             {
                 Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
@@ -189,12 +196,12 @@ namespace wkurw
 
             var CurrencyDara = new FreeCurrencyServise();
             var rate_from_1 = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
-            var kwota_z_1 = double.Parse(txt1.Text);
+            var kwota_z_1 = double.Parse(pierwszy_txt);
             var exchange_z_1 = kwota_z_1 * rate_from_1;
 
             if (!pierwszyON && !drugiON)
             {
-                txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1);
+                txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1);
                 return;
             }
 
@@ -205,6 +212,13 @@ namespace wkurw
                     Toast.MakeText(this, "podaj 2 nominal", ToastLength.Short).Show();
                     return;
                 }
+                if (txt2.Text.StartsWith(".") || txt2.Text.StartsWith(","))
+                {
+                    Toast.MakeText(this, "zapomniales zera", ToastLength.Short).Show();
+                    return;
+                }
+
+                var drugi_txt = txt1.Text.Replace(".", ",");
 
                 if (kombi2.SelectedItemPosition == 0)
                 {
@@ -219,15 +233,15 @@ namespace wkurw
                 }
 
                 var rate_from_2 = CurrencyDara.GetDataFromService(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
-                var kwota_z_2 = double.Parse(txt2.Text);
+                var kwota_z_2 = double.Parse(drugi_txt);
                 var exchane_z_2 = kwota_z_2 * rate_from_2;
 
                 switch (buttom_znak.Text)
                 {
                     case "+":
-                        txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 + exchane_z_2); break;
+                        txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 + exchane_z_2); break;
                     case "-":
-                        txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 - exchane_z_2); break;
+                        txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 - exchane_z_2); break;
                 }
                 return;
             }
@@ -248,9 +262,9 @@ namespace wkurw
                 switch (buttom_znak.Text)
                 {
                     case "x":
-                        txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 * double.Parse(txt2.Text)); break;
+                        txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 * double.Parse(txt2.Text)); break;
                     case "/":
-                        txt_wynik.Text = string.Format("wynik: {0}", exchange_z_1 / double.Parse(txt2.Text)); break;
+                        txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 / double.Parse(txt2.Text)); break;
                 }
                 return;
             }
