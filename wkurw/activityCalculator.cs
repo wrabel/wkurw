@@ -82,10 +82,37 @@ namespace wkurw
             buttom_znak.Visibility = ViewStates.Gone;
             //przypisanie buttomom funkcji
             buttom_ob.Click += oblicz_click;
+            buttom_ob.LongClick += Buttom_ob_LongClick;
             buttom_znak.Click += zmien_znak;
             //przypisanie swithcom funkcji
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
+
+
+        }
+
+        private void Buttom_ob_LongClick(object sender, View.LongClickEventArgs e)
+        {
+            if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
+            {
+                Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                return;
+            }
+
+            if (pierwszyON || drugiON)
+            {
+                return;
+            }
+
+            var CurrencyDara = new FreeCurrencyServise();
+            var rates = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog alerDialog = builder.Create();
+            alerDialog.SetTitle(string.Format("Przelicznik: {0} : {1}", kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString()));
+            alerDialog.SetMessage(string.Format(" < {0} > ",rates));
+            alerDialog.SetButton("OK", (s, ev) => { });
+            alerDialog.Show();
 
 
         }
@@ -180,13 +207,12 @@ namespace wkurw
                 Toast.MakeText(this, "podaj kwote", ToastLength.Short).Show();
                 return;
             }
-
-            if (txt1.Text.StartsWith(".") || txt1.Text.StartsWith(","))
-            {
-                Toast.MakeText(this, "zapomniales zera", ToastLength.Short).Show();
-                return;
-            }
+            
             var pierwszy_txt = txt1.Text.Replace(".", ",");
+            if (pierwszy_txt.StartsWith(","))
+            {
+                pierwszy_txt = "0" + pierwszy_txt;
+            }
 
             if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
             {
@@ -212,13 +238,12 @@ namespace wkurw
                     Toast.MakeText(this, "podaj 2 nominal", ToastLength.Short).Show();
                     return;
                 }
-                if (txt2.Text.StartsWith(".") || txt2.Text.StartsWith(","))
-                {
-                    Toast.MakeText(this, "zapomniales zera", ToastLength.Short).Show();
-                    return;
-                }
-
+               
                 var drugi_txt = txt1.Text.Replace(".", ",");
+                if (drugi_txt.StartsWith(","))
+                {
+                    drugi_txt = "0" + drugi_txt;
+                }
 
                 if (kombi2.SelectedItemPosition == 0)
                 {
