@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
+using Android.Net;
 
 namespace wkurw
 {
@@ -26,6 +27,11 @@ namespace wkurw
         private int znaczek;
 
         private Spinner kombi1, kombi2, kombi3;
+
+        //internet
+        ConnectivityManager connectivityManager;
+        NetworkInfo activeConnection;
+        bool isOnline;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -89,10 +95,24 @@ namespace wkurw
             switch2.CheckedChange += visible_of_second;
 
 
+
         }
 
         private void Buttom_ob_LongClick(object sender, View.LongClickEventArgs e)
         {
+            connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            activeConnection = connectivityManager.ActiveNetworkInfo;
+            isOnline = (activeConnection != null) && activeConnection.IsConnected;
+            if (!isOnline)
+            {
+                AlertDialog.Builder build = new AlertDialog.Builder(this);
+                AlertDialog alerNet = build.Create();
+                alerNet.SetTitle("Warning!");
+                alerNet.SetMessage("Internet jest wymagany");
+                alerNet.SetButton("OK", (s, ev) => { });
+                alerNet.Show();
+                return;
+            }
             if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
             {
                 Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
@@ -202,6 +222,19 @@ namespace wkurw
 
         private void oblicz_click(object sender, EventArgs e) // cala funkcjia liczaca po kliknieciu (tutaj sa problemy)
         {
+            connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            activeConnection = connectivityManager.ActiveNetworkInfo;
+            isOnline = (activeConnection != null) && activeConnection.IsConnected;
+            if (!isOnline)
+            {
+                AlertDialog.Builder build = new AlertDialog.Builder(this);
+                AlertDialog alerNet = build.Create();
+                alerNet.SetTitle("Warning!");
+                alerNet.SetMessage("Internet jest wymagany");
+                alerNet.SetButton("OK", (s, ev) => { });
+                alerNet.Show();
+                return;
+            }
             if (txt1.Text == "")
             {
                 Toast.MakeText(this, "podaj kwote", ToastLength.Short).Show();
