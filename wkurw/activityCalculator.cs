@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
 using Android.Net;
+using Android.Net.Wifi;
 
 namespace wkurw
 {
@@ -29,10 +26,10 @@ namespace wkurw
         private Spinner kombi1, kombi2, kombi3;
 
         //internet
-        ConnectivityManager connectivityManager;
-        NetworkInfo activeConnection;
-        bool isOnline;
-
+        private ConnectivityManager connectivityManager;
+        private NetworkInfo activeConnection;
+        private bool isOnline;
+        private WifiManager wifiManager;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //deklaracja widoku
@@ -109,7 +106,16 @@ namespace wkurw
                 AlertDialog alerNet = build.Create();
                 alerNet.SetTitle("Warning!");
                 alerNet.SetMessage("Internet jest wymagany");
-                alerNet.SetButton("OK", (s, ev) => { });
+                alerNet.SetButton("Wlacz wifi", (s, ev) =>
+                {
+                    wifiManager = (WifiManager)GetSystemService(WifiService);
+                    wifiManager.SetWifiEnabled(true);
+                });
+                alerNet.SetButton2("Wlacz dane komorkowe", (s, ev) =>
+                {
+                    var intent = new Intent(Android.Provider.Settings.ActionSettings);
+                    StartActivity(intent);
+                });
                 alerNet.Show();
                 return;
             }
@@ -231,7 +237,16 @@ namespace wkurw
                 AlertDialog alerNet = build.Create();
                 alerNet.SetTitle("Warning!");
                 alerNet.SetMessage("Internet jest wymagany");
-                alerNet.SetButton("OK", (s, ev) => { });
+                alerNet.SetButton("Wlacz wifi", (s, ev) =>
+                {
+                    wifiManager = (WifiManager)GetSystemService(WifiService);
+                    wifiManager.SetWifiEnabled(true);
+                });
+                alerNet.SetButton2("Wlacz dane komorkowe", (s, ev) =>
+                {
+                    var intent = new Intent(Android.Provider.Settings.ActionSettings);
+                    StartActivity(intent);
+                });
                 alerNet.Show();
                 return;
             }
