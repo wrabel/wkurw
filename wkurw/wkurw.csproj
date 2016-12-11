@@ -103,8 +103,6 @@
     <Compile Include="activityClicer.cs" />
     <Compile Include="activityRegEdit.cs" />
     <Compile Include="DataBase.cs" />
-    <Compile Include="ExchangeWebService.cs" />
-    <Compile Include="Fixer.cs" />
     <Compile Include="FreeCurrencyService.cs" />
     <Compile Include="ListViewAdapter.cs" />
     <Compile Include="loged.cs" />
@@ -117,7 +115,6 @@
     <Compile Include="walut_lista.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
