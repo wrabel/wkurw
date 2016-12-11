@@ -286,6 +286,9 @@ namespace wkurw
 		public partial class Style
 		{
 			
+			// aapt resource value: 0x7f050002
+			public const int AppTheme = 2131034114;
+			
 			// aapt resource value: 0x7f050000
 			public const int CustomTheme = 2131034112;
 			

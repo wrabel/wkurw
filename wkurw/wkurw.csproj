@@ -115,6 +115,7 @@
     <Compile Include="walut_lista.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App\wkurw.wkurw-Signed.apk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

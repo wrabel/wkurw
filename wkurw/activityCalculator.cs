@@ -11,7 +11,7 @@ using Android.Net.Wifi;
 
 namespace wkurw
 {
-    [Activity(Label = "activityCalculator")]
+    [Activity(Label = "activityCalculator",Theme = "@style/AppTheme")]
     public class activityCalculator : Activity
     {
         //wstepna deklaracaj widoku

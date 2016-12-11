@@ -8,7 +8,7 @@ using Android.Views;
 namespace wkurw
 {
 
-    [Activity(Label = "activityClicer")]
+    [Activity(Label = "activityClicer", Theme = "@style/AppTheme")]
     public class activityClicer : Activity
     {
         private Button MyClicer,RES;
