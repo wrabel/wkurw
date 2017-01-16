@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="10dip"
     android:id="@+id/m_View">
     <LinearLayout
@@ -54,7 +53,8 @@
             android:minWidth="25px"
             android:minHeight="25px"
             android:gravity="bottom"
-            android:id="@+id/linearLayout2">
+            android:id="@+id/linearLayout2"
+            android:layout_marginTop="0.0dp">
             <Button xmlns:tools="http://schemas.android.com/tools"
                 android:text="znak"
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:id="@+id/button_znak"
                 tools:visibility="visible"
                 android:layout_gravity="center"
-                android:layout_marginBottom="25dp" />
+                android:layout_marginBottom="25.0dp" />
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
@@ -109,14 +109,27 @@
                     android:gravity="center"
                     tools:visibility="visible" />
             </LinearLayout>
-            <Button
-                android:text="Oblicz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/button_oblicz"
-                android:layout_gravity="center"
-                android:height="100dp" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="200dp"
+                android:id="@+id/linearLayoutimagine">
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton1"
+                    android:layout_gravity="center" />
+                <Button
+                    android:text="Oblicz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/button_oblicz"
+                    android:layout_gravity="center"
+                    android:height="100dp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

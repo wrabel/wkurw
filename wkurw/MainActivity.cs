@@ -1,7 +1,5 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Support.V4.App;
-using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
@@ -9,228 +7,372 @@ using Android.Content;
 using Android.Views.InputMethods;
 using Android.Util;
 using System;
+using Android.Net;
+using Android.Net.Wifi;
+using System.Threading.Tasks;
+using System.Net;
 
-namespace wkurw
+namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
 {
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
-    public class MainActivity : Activity
+    public class MainActivity : Activity, IKalku, IOnline
     {
-        //deklaracja widoku
-        private string left1 = "Hello Word", left2 = "Kalkulator";
-        DrawerLayout mDrawerLayout;
-        List<string> mLeftItems = new List<string>();
-        ArrayAdapter mLeftAdapter;
-        ListView mLeftDrawer;
+        //wstepna deklaracaj widoku
+        RelativeLayout mrelativ;
+        private Button buttom_ob, buttom_znak;
+        private TextView txt_wynik;
+        private Switch switch1, switch2;
+        private EditText txt1, txt2;
+        bool pierwszyON, drugiON;
+        private int znaczek;
 
-        RelativeLayout mrelative;
+        private Spinner kombi1, kombi2, kombi3;
 
-        List<string> mRightItems = new List<string>();
-        ArrayAdapter mRightAdapter;
-        ListView mRightDrawer;
+        //internet
+        
+        private WifiManager wifiManager;
+        private bool isOnline;
+        private ImageButton _net_btn;
+        private Online online = new Online();
 
-        ActionBarDrawerToggle mDrawerToggle;
-
-
-
-        Button btnLogin;
-        DataBase db;
-        List<Person> lstSource = new List<Person>();
-        EditText txt_nick, txt_email;
-
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            //deklaracja widoku
 
-            SetContentView(Resource.Layout.Main);
+            base.OnCreate(savedInstanceState);
 
-            mrelative = FindViewById<RelativeLayout>(Resource.Id.mainView);
-            mrelative.Click += Mrelative_Click;
+            SetContentView(Resource.Layout.calculator);
 
-            mDrawerLayout = FindViewById<DrawerLayout>(Resource.Id.Drawer);
-            mRightDrawer = FindViewById<ListView>(Resource.Id.rightList);
-
-            mRightItems.Add("RegEdit");
-            mRightItems.Add("");
-            mRightItems.Add("");
-            mRightItems.Add("");
-            mRightItems.Add("support us");
-            mRightItems.Add("exit");
-
-            mLeftDrawer = FindViewById<ListView>(Resource.Id.leftList);
-            mLeftItems.Add(left1);
-            mLeftItems.Add(left2);
-
-            mLeftDrawer.Tag = 0;
-            mRightDrawer.Tag = 1;
-
-            mDrawerToggle = new MyActionBarDrawerToggle(this, mDrawerLayout, Resource.Drawable.ic_menu, Resource.String.open_drawer, Resource.String.close_drawer);
-
-            mLeftAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
-            mLeftDrawer.Adapter = mLeftAdapter;
-
-            mRightAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, mRightItems);
-            mRightDrawer.Adapter = mRightAdapter;
-
-            mDrawerLayout.SetDrawerListener(mDrawerToggle);
-            ActionBar.SetDisplayHomeAsUpEnabled(true);
-            ActionBar.SetHomeButtonEnabled(true);
+            ActionBar.Title = " Oblicze za ciebie ;] ";
             ActionBar.SetDisplayShowTitleEnabled(true);
 
-            mLeftDrawer.ItemClick += mLeftDrawer_ItemClickShort;
-            mLeftDrawer.ItemLongClick += mLeftDrawer_ItemClickLong;
+            mrelativ = FindViewById<RelativeLayout>(Resource.Id.m_View);
+            mrelativ.Click += Mrelativ_Click;
 
-            mRightDrawer.ItemClick += mRightDrawer_ItemClickShort;
-            mRightDrawer.ItemLongClick += mRightDrawer_ItemClickLong;
+            buttom_ob = FindViewById<Button>(Resource.Id.button_oblicz);
+            buttom_znak = FindViewById<Button>(Resource.Id.button_znak);
+            txt_wynik = FindViewById<TextView>(Resource.Id.txt_wynik);
+            switch2 = FindViewById<Switch>(Resource.Id.switch_dziel_mnoz);
+            switch1 = FindViewById<Switch>(Resource.Id.switch_dodac_odjac);
+            txt1 = FindViewById<EditText>(Resource.Id.txt_waluta_1);
+            txt2 = FindViewById<EditText>(Resource.Id.txt_waluta_2);
 
+            kombi1 = FindViewById<Spinner>(Resource.Id.txt_kombi_1);
+            kombi2 = FindViewById<Spinner>(Resource.Id.txt_kombi_2);
+            kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
 
-            //Create DataBase
-            db = new DataBase();
-            db.createDataBase();
-            string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            Log.Info("DB_PATH", folder);
-            
+            _net_btn = FindViewById<ImageButton>(Resource.Id.imageButton1);
+            _net_btn.Click += _net_btn_Click;
 
-            txt_nick = FindViewById<EditText>(Resource.Id.txtUserNick);
-            txt_email = FindViewById<EditText>(Resource.Id.txtUserMail);
-            btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
+            //towrzenie tablicy stringow wykorzystawane w polach kobi (spinner)
+            var kombi_1 = new string[walut_lista.Items.Count + 1];
+            kombi_1[0] = "wybierz walute:";
+            int i = 1;
+            foreach (var iteam in walut_lista.Items)
+            {
+                kombi_1[i++] = iteam.SC;
+            }
+            //dodanie itemsow do spinnerow na podstawie tablicy strongow
+            kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+            //nadanie funkcji "po wyborze z listy kombi"
+            kombi1.ItemSelected += kombi_selected;
+            kombi2.ItemSelected += kombi_selected;
+            kombi3.ItemSelected += kombi_selected;
 
+            //poczatkowe ustawienia widocznosci na stronie 
+            pierwszyON = false;
+            drugiON = false;
+            znaczek = 0;
 
-            btnLogin.Click += BtnLogin_Click;
+            kombi2.Visibility = ViewStates.Gone;  // kombi
+            kombi3.Visibility = ViewStates.Visible; // kombi
 
+            txt2.Visibility = ViewStates.Gone;
+            buttom_znak.Visibility = ViewStates.Gone;
+            //przypisanie buttomom funkcji
+            buttom_ob.Click += oblicz_click;
+            buttom_ob.LongClick += Buttom_ob_LongClick;
+            buttom_znak.Click += zmien_znak;
+            //przypisanie swithcom funkcji
+            switch1.CheckedChange += visible_of_first;
+            switch2.CheckedChange += visible_of_second;
+
+            //wywolanie sprawdzania internetu
+            ChceckNetwork();
+        }
+
+        private void _net_btn_Click(object sender, EventArgs e) //przycisniecie czerwono/zielonego gudzika
+        {
+            ZmienKolor();
+        }
+
+        public void ZmienKolor() // zmienianie koloru przycisku w zaleznosci od obecnego ONLINE
+        {
+            isOnline = online.is_Online();
+            if (isOnline) _net_btn.SetImageResource(Resource.Drawable.kwadrat_zielony);
+            else _net_btn.SetImageResource(Resource.Drawable.kwadrat_czerwony);
+        }
+        public async void ChceckNetwork() // sprawdzanie mozliwosci ONLINE i ew wejscie w ustawienia
+        {
+            await Task.Delay(1000);
+            ZmienKolor();
+            isOnline = online.is_Online();
+            if (!isOnline)
+                {
+                    AlertDialog.Builder build = new AlertDialog.Builder(this);
+                    AlertDialog alerNet = build.Create();
+                    alerNet.SetCancelable(false);
+                    alerNet.SetTitle("Warning!");
+                    alerNet.SetMessage("Internet jest wymagany");
+                    alerNet.SetButton("Wlacz wifi", (s, ev) =>
+                    {
+                        wifiManager = (WifiManager)GetSystemService(WifiService);
+                        wifiManager.SetWifiEnabled(true);
+                    });
+                    alerNet.SetButton2("Wlacz dane komorkowe", (s, ev) =>
+                    {
+                        var intent = new Intent(Android.Provider.Settings.ActionSettings);
+                        StartActivity(intent);
+
+                    });
+                    alerNet.Show();
+                } 
+            await Task.Delay(4000);
+            ZmienKolor();
 
 
         }
-
-        private void BtnLogin_Click(object sender, EventArgs e)
-        {
-            
-                if (txt_nick.Text == "" && txt_email.Text == "")
+        private void Buttom_ob_LongClick(object sender, View.LongClickEventArgs e) // dlugie przycisniecie guzika oblicz 
+        { // sprawdzanie online wyrzucone do innej metody i zamiast niego wszystko robione pod try 
+            try
+            {
+                if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
                 {
+                    Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                    return;
+                }
+
+                if (pierwszyON || drugiON)
+                {
+                    return;
+                }
+
+                var CurrencyDara = new FreeCurrencyServise();
+                var rates = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 AlertDialog alerDialog = builder.Create();
-                alerDialog.SetTitle("Witaj !");
-                alerDialog.SetIcon(Resource.Drawable.user_);
-                alerDialog.SetMessage("Logujesz sie jako Gość");
-                alerDialog.SetButton("OK", (s, ev) =>
-                {
-                    Intent intent2 = new Intent(this, typeof(loged));
-                    this.StartActivity(intent2);
-                    this.Finish();
-                });
-                alerDialog.SetButton2("anuluj", (s, ev) => { });
+                alerDialog.SetCanceledOnTouchOutside(false);
+                alerDialog.SetTitle(string.Format("Przelicznik: {0} : {1}", kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString()));
+                alerDialog.SetMessage(string.Format(" < {0} > ", rates));
+                alerDialog.SetButton("OK", (s, ev) => { });
                 alerDialog.Show();
-
-              
-
-                }
-                else
-                {
-                Person person = new Person()
-                {
-                    Nick = txt_nick.Text,
-                    Email = txt_email.Text,
-                    data = string.Format("{0}/{1}/{2} {3}:{4}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute)
-                };
-                db.insertIntoTablePerson(person);
-                Intent intent = new Intent(this, typeof(loged));
-                this.StartActivity(intent);
-                this.Finish();
             }
-            
+            catch // wiadomosc o braku polaczenia z internetem
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerDialog = builder.Create();
+                alerDialog.SetTitle("Warning!");
+                alerDialog.SetCanceledOnTouchOutside(false);
+                alerDialog.SetMessage("Sprawdz polaczenie z internetem");
+                alerDialog.SetButton("OK", (s, ev) => { });
+                alerDialog.Show();
+                ZmienKolor();
+            }
         }
 
-        private void Mrelative_Click(object sender, System.EventArgs e)
+        private void Mrelativ_Click(object sender, EventArgs e) // "dotkniecie" elementow jak i samego layouta
         {
             InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
             inmutManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
         }
 
-        protected void mRightDrawer_ItemClickLong(object sender, AdapterView.ItemLongClickEventArgs e)
-        { 
-            Toast.MakeText(this, "krotki opis: " + mRightItems[e.Position],ToastLength.Short).Show();
-        }
 
-        protected void mRightDrawer_ItemClickShort(object sender, AdapterView.ItemClickEventArgs e)
+        //instrukcja dzialan funkcji "wybor z listy kombi" -> wyswitla pelna angielska nazwe danej waluty
+        private void kombi_selected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            string iteam = mRightItems[e.Position];
-            switch (iteam)
+            if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
             {
-                case "RegEdit":
-                    Intent intentt = new Intent(this, typeof(activityRegEdit));
-                    this.StartActivity(intentt); break;
-                case "support us":
-                    Finish(); break;
-                case "exit":
-                    Process.KillProcess(Process.MyPid()); break;
+                var wybor = walut_lista.Items[e.Position - 1];
+                Toast.MakeText(this, "wybrales: " + wybor.e_nazwa, ToastLength.Short).Show();
             }
         }
 
-        protected void mLeftDrawer_ItemClickShort (object sender, AdapterView.ItemClickEventArgs e)
+        public void zmien_znak(object sender, EventArgs e) // zmienianie znaku po nacisnieciu buttom_znak
         {
-           string iteam = mLeftItems[e.Position];
-           switch (iteam)
+
+            znaczek %= 2;
+            if (pierwszyON)
             {
-                case "Hello Word" :
-                    Intent intent = new Intent(this, typeof(activityClicer));
-                    this.StartActivity(intent); break;
-                case "Kalkulator" :
-                    Intent intent2 = new Intent(this, typeof(activityCalculator));
-                    this.StartActivity(intent2);
-                    this.Finish(); break;
+                buttom_znak.Text = (znaczek == 0 ? "+" : "-");
+            }
+            if (drugiON)
+            {
+                buttom_znak.Text = (znaczek == 0 ? "x" : "/");
+            }
+            znaczek++;
+
+        }
+
+        public void visible_of_first(object sender, CompoundButton.CheckedChangeEventArgs e) // nastepstwa po wlaczeniu switcha1
+        {
+            if (drugiON)
+            {
+                switch2.Checked = false; // -> jesli drugi tez jest wlaczony wylacza go
+            }
+            pierwszyON = e.IsChecked;
+            if (e.IsChecked)
+            {
+
+                buttom_znak.Text = "znak"; // "zeruje" znak 
+                buttom_znak.Visibility = ViewStates.Visible;
+                txt2.Visibility = ViewStates.Visible;
+
+                kombi2.Visibility = ViewStates.Visible; //kombi
+            }
+            else
+            {
+                buttom_znak.Visibility = ViewStates.Gone;
+                txt2.Visibility = ViewStates.Gone;
+                txt2.Text = "";
+                kombi2.Visibility = ViewStates.Gone; //kombi
             }
         }
-        
-        protected void mLeftDrawer_ItemClickLong (object sender, AdapterView.ItemLongClickEventArgs e)
-        {
-            Toast.MakeText(this, "krotki opis: " + mLeftItems[e.Position], ToastLength.Short).Show();
-        }
-        protected override void OnPostCreate(Bundle savedInstanceState)
-        {
-            base.OnPostCreate(savedInstanceState);
-            mDrawerToggle.SyncState();
-        }
 
-        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        public void visible_of_second(object sender, CompoundButton.CheckedChangeEventArgs e) // nastepstwa po wlaczeniu switcha2
         {
-            base.OnConfigurationChanged(newConfig);
-            mDrawerToggle.OnConfigurationChanged(newConfig);
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.action_bar, menu);
-            return base.OnCreateOptionsMenu(menu);
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            if (mDrawerToggle.OnOptionsItemSelected(item))
+            if (pierwszyON)
             {
-                if (mDrawerLayout.IsDrawerOpen(mRightDrawer))
+                switch1.Checked = false;
+            }
+            drugiON = e.IsChecked;
+            if (e.IsChecked)
+            {
+                buttom_znak.Text = "znak";
+                buttom_znak.Visibility = ViewStates.Visible;
+                txt2.Visibility = ViewStates.Visible;
+
+                //kombi3.Visibility = ViewStates.Visible; //kombi
+            }
+            else
+            {
+                buttom_znak.Visibility = ViewStates.Gone;
+                txt2.Visibility = ViewStates.Gone;
+                txt2.Text = "";
+
+                //kombi3.Visibility = ViewStates.Gone; // kombi
+            }
+        }
+
+        private void oblicz_click(object sender, EventArgs e) // cala funkcjia liczaca po kliknieciu 
+        {   // sprawdzanie online wyrzucone do innej metody i zamiast niego wszystko robione pod try 
+            try
+            {
+                if (txt1.Text == "")
                 {
-                    mDrawerLayout.CloseDrawer(mRightDrawer);
+                    Toast.MakeText(this, "podaj kwote", ToastLength.Short).Show();
+                    return;
                 }
-                return true;
-            }
 
-            switch (item.ItemId)
+                var pierwszy_txt = txt1.Text.Replace(".", ",");
+                if (pierwszy_txt.StartsWith(","))
+                {
+                    pierwszy_txt = "0" + pierwszy_txt;
+                }
+
+                if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
+                {
+                    Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                    return;
+                }
+
+                var CurrencyDara = new FreeCurrencyServise();
+                var rate_from_1 = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                var kwota_z_1 = double.Parse(pierwszy_txt);
+                var exchange_z_1 = kwota_z_1 * rate_from_1;
+
+                if (!pierwszyON && !drugiON)
+                {
+                    txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1);
+                    return;
+                }
+
+                if (pierwszyON)
+                {
+                    if (txt2.Text == "")
+                    {
+                        Toast.MakeText(this, "podaj 2 nominal", ToastLength.Short).Show();
+                        return;
+                    }
+
+                    var drugi_txt = txt1.Text.Replace(".", ",");
+                    if (drugi_txt.StartsWith(","))
+                    {
+                        drugi_txt = "0" + drugi_txt;
+                    }
+
+                    if (kombi2.SelectedItemPosition == 0)
+                    {
+                        Toast.MakeText(this, "wybierz 2 walute", ToastLength.Short).Show();
+                        return;
+                    }
+
+                    if (buttom_znak.Text == "znak")
+                    {
+                        Toast.MakeText(this, "ustal znak", ToastLength.Short).Show();
+                        return;
+                    }
+
+                    var rate_from_2 = CurrencyDara.GetDataFromService(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+                    var kwota_z_2 = double.Parse(drugi_txt);
+                    var exchane_z_2 = kwota_z_2 * rate_from_2;
+
+                    switch (buttom_znak.Text)
+                    {
+                        case "+":
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 + exchane_z_2); break;
+                        case "-":
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 - exchane_z_2); break;
+                    }
+                    return;
+                }
+                if (drugiON)
+                {
+                    if (txt2.Text == "")
+                    {
+                        Toast.MakeText(this, "podaj liczbe", ToastLength.Short).Show();
+                        return;
+                    }
+
+                    if (buttom_znak.Text == "znak")
+                    {
+                        Toast.MakeText(this, "ustal znak", ToastLength.Short).Show();
+                        return;
+                    }
+
+                    switch (buttom_znak.Text)
+                    {
+                        case "x":
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 * double.Parse(txt2.Text)); break;
+                        case "/":
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 / double.Parse(txt2.Text)); break;
+                    }
+                    return;
+                }
+            }
+            catch
             {
-                case Resource.Id.support:
-                    if (mDrawerLayout.IsDrawerOpen(mRightDrawer))
-                    {
-                        mDrawerLayout.CloseDrawer(mRightDrawer);
-                    }
-                    else
-                    {
-                        mDrawerLayout.CloseDrawer(mLeftDrawer);
-                        mDrawerLayout.OpenDrawer(mRightDrawer);
-                    }
-                    return true;
-
-                default:
-                    return base.OnOptionsItemSelected(item);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerDialog = builder.Create();
+                alerDialog.SetTitle("Warning!");
+                alerDialog.SetCanceledOnTouchOutside(false);
+                alerDialog.SetMessage("Sprawdz polaczenie z internetem");
+                alerDialog.SetButton("OK", (s, ev) => { });
+                alerDialog.Show();
+                ZmienKolor();
             }
-
             
         }
     }

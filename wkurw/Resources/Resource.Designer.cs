@@ -54,16 +54,13 @@ namespace wkurw
 			public const int edit_text_style = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int ic_flag = 2130837507;
+			public const int icon = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int ic_menu = 2130837508;
+			public const int kwadrat_czerwony = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int Icon = 2130837509;
-			
-			// aapt resource value: 0x7f020006
-			public const int user_ = 2130837510;
+			public const int kwadrat_zielony = 2130837509;
 			
 			static Drawable()
 			{
@@ -78,128 +75,56 @@ namespace wkurw
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07001b
-			public const int Drawer = 2131165211;
+			// aapt resource value: 0x7f060010
+			public const int button_oblicz = 2131099664;
 			
-			// aapt resource value: 0x7f070000
-			public const int Drawer2 = 2131165184;
+			// aapt resource value: 0x7f060007
+			public const int button_znak = 2131099655;
 			
-			// aapt resource value: 0x7f070016
-			public const int MyClicer = 2131165206;
+			// aapt resource value: 0x7f06000f
+			public const int imageButton1 = 2131099663;
 			
-			// aapt resource value: 0x7f070026
-			public const int btnDelete = 2131165222;
+			// aapt resource value: 0x7f060001
+			public const int linearLayout1 = 2131099649;
 			
-			// aapt resource value: 0x7f070025
-			public const int btnEdit = 2131165221;
+			// aapt resource value: 0x7f060006
+			public const int linearLayout2 = 2131099654;
 			
-			// aapt resource value: 0x7f07001f
-			public const int btnLogin = 2131165215;
+			// aapt resource value: 0x7f060008
+			public const int linearLayout3 = 2131099656;
 			
-			// aapt resource value: 0x7f070013
-			public const int button_oblicz = 2131165203;
+			// aapt resource value: 0x7f06000b
+			public const int linearLayout4 = 2131099659;
 			
-			// aapt resource value: 0x7f070017
-			public const int button_res = 2131165207;
+			// aapt resource value: 0x7f06000e
+			public const int linearLayoutimagine = 2131099662;
 			
-			// aapt resource value: 0x7f07000c
-			public const int button_znak = 2131165196;
+			// aapt resource value: 0x7f060000
+			public const int m_View = 2131099648;
 			
-			// aapt resource value: 0x7f070020
-			public const int checkBox1 = 2131165216;
+			// aapt resource value: 0x7f060004
+			public const int switch_dodac_odjac = 2131099652;
 			
-			// aapt resource value: 0x7f070001
-			public const int content_frame2 = 2131165185;
+			// aapt resource value: 0x7f060005
+			public const int switch_dziel_mnoz = 2131099653;
 			
-			// aapt resource value: 0x7f070024
-			public const int e_Email = 2131165220;
+			// aapt resource value: 0x7f060003
+			public const int txt_kombi_1 = 2131099651;
 			
-			// aapt resource value: 0x7f070023
-			public const int e_Name = 2131165219;
+			// aapt resource value: 0x7f06000a
+			public const int txt_kombi_2 = 2131099658;
 			
-			// aapt resource value: 0x7f070027
-			public const int e_listView = 2131165223;
+			// aapt resource value: 0x7f06000d
+			public const int txt_kombi_3 = 2131099661;
 			
-			// aapt resource value: 0x7f070021
-			public const int leftList = 2131165217;
+			// aapt resource value: 0x7f060002
+			public const int txt_waluta_1 = 2131099650;
 			
-			// aapt resource value: 0x7f070002
-			public const int leftList2 = 2131165186;
+			// aapt resource value: 0x7f060009
+			public const int txt_waluta_2 = 2131099657;
 			
-			// aapt resource value: 0x7f070006
-			public const int linearLayout1 = 2131165190;
-			
-			// aapt resource value: 0x7f07000b
-			public const int linearLayout2 = 2131165195;
-			
-			// aapt resource value: 0x7f07000d
-			public const int linearLayout3 = 2131165197;
-			
-			// aapt resource value: 0x7f070010
-			public const int linearLayout4 = 2131165200;
-			
-			// aapt resource value: 0x7f070004
-			public const int listView = 2131165188;
-			
-			// aapt resource value: 0x7f070005
-			public const int m_View = 2131165189;
-			
-			// aapt resource value: 0x7f07001c
-			public const int mainView = 2131165212;
-			
-			// aapt resource value: 0x7f070022
-			public const int rightList = 2131165218;
-			
-			// aapt resource value: 0x7f070003
-			public const int rightList2 = 2131165187;
-			
-			// aapt resource value: 0x7f070028
-			public const int support = 2131165224;
-			
-			// aapt resource value: 0x7f070009
-			public const int switch_dodac_odjac = 2131165193;
-			
-			// aapt resource value: 0x7f07000a
-			public const int switch_dziel_mnoz = 2131165194;
-			
-			// aapt resource value: 0x7f070018
-			public const int textView1 = 2131165208;
-			
-			// aapt resource value: 0x7f070019
-			public const int textView2 = 2131165209;
-			
-			// aapt resource value: 0x7f07001a
-			public const int textView3 = 2131165210;
-			
-			// aapt resource value: 0x7f070015
-			public const int txtCD = 2131165205;
-			
-			// aapt resource value: 0x7f070014
-			public const int txtClicer = 2131165204;
-			
-			// aapt resource value: 0x7f07001e
-			public const int txtUserMail = 2131165214;
-			
-			// aapt resource value: 0x7f07001d
-			public const int txtUserNick = 2131165213;
-			
-			// aapt resource value: 0x7f070008
-			public const int txt_kombi_1 = 2131165192;
-			
-			// aapt resource value: 0x7f07000f
-			public const int txt_kombi_2 = 2131165199;
-			
-			// aapt resource value: 0x7f070012
-			public const int txt_kombi_3 = 2131165202;
-			
-			// aapt resource value: 0x7f070007
-			public const int txt_waluta_1 = 2131165191;
-			
-			// aapt resource value: 0x7f07000e
-			public const int txt_waluta_2 = 2131165198;
-			
-			// aapt resource value: 0x7f070011
-			public const int txt_wynik = 2131165201;
+			// aapt resource value: 0x7f06000c
+			public const int txt_wynik = 2131099660;
 			
 			static Id()
 			{
@@ -215,22 +140,7 @@ namespace wkurw
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int after_log = 2130903040;
-			
-			// aapt resource value: 0x7f030001
-			public const int calculator = 2130903041;
-			
-			// aapt resource value: 0x7f030002
-			public const int Clicer = 2130903042;
-			
-			// aapt resource value: 0x7f030003
-			public const int list_view_data = 2130903043;
-			
-			// aapt resource value: 0x7f030004
-			public const int Main = 2130903044;
-			
-			// aapt resource value: 0x7f030005
-			public const int reg_editable = 2130903045;
+			public const int calculator = 2130903040;
 			
 			static Layout()
 			{
@@ -238,22 +148,6 @@ namespace wkurw
 			}
 			
 			private Layout()
-			{
-			}
-		}
-		
-		public partial class Menu
-		{
-			
-			// aapt resource value: 0x7f060000
-			public const int action_bar = 2131099648;
-			
-			static Menu()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Menu()
 			{
 			}
 		}
