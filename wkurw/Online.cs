@@ -1,7 +1,4 @@
-using Android.Content;
-using Android.Net;
 using Plugin.Connectivity;
-using System.Net;
 
 namespace wkurw
 {

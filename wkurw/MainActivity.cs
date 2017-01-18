@@ -14,13 +14,14 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
     [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity, IKalku, IOnline
     {
+        #region (widok raczki itp)
         //wstepna deklaracaj widoku
-        RelativeLayout mrelativ;
+        private RelativeLayout mrelativ;
         private Button buttom_ob, buttom_znak;
         private TextView txt_wynik;
         private Switch switch1, switch2;
         private EditText txt1, txt2;
-        bool pierwszyON, drugiON;
+        private bool pierwszyON, drugiON;
         private int znaczek;
 
         private Spinner kombi1, kombi2, kombi3;
@@ -70,10 +71,12 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             {
                 kombi_1[i++] = iteam.SC;
             }
+
             //dodanie itemsow do spinnerow na podstawie tablicy strongow
             kombi1.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi2.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
             kombi3.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, kombi_1);
+
             //nadanie funkcji "po wyborze z listy kombi"
             kombi1.ItemSelected += kombi_selected;
             kombi2.ItemSelected += kombi_selected;
@@ -89,21 +92,26 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
 
             txt2.Visibility = ViewStates.Gone;
             buttom_znak.Visibility = ViewStates.Gone;
+
             //przypisanie buttomom funkcji
             buttom_ob.Click += oblicz_click;
             buttom_ob.LongClick += Buttom_ob_LongClick;
             buttom_znak.Click += zmien_znak;
+
             //przypisanie swithcom funkcji
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
 
             //wywolanie sprawdzania internetu
             ChceckNetwork();
-            CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged; 
         }
+        #endregion
 
+        #region (funkcje internetowe)
         private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
+            // rasia sluzaca do zmiany obrazka kiedy zmieniamy polaczenie z internetem
             ZmienKolor();
         }
         
@@ -113,6 +121,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             if (isOnline) _net_view.SetImageResource(Resource.Drawable.kwadrat_zielony);
             else _net_view.SetImageResource(Resource.Drawable.kwadrat_czerwony);
         }
+
         public async void ChceckNetwork() // sprawdzanie mozliwosci ONLINE i ew wejscie w ustawienia
         {
             await Task.Delay(750);
@@ -137,56 +146,18 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     });
                     alerNet.Show();
                 } 
-            ZmienKolor();
-
-
         }
-        private void Buttom_ob_LongClick(object sender, View.LongClickEventArgs e) // dlugie przycisniecie guzika oblicz 
-        { // sprawdzanie online wyrzucone do innej metody i zamiast niego wszystko robione pod try 
-            try
-            {
-                if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
-                {
-                    Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
-                    return;
-                }
+        #endregion
 
-                if (pierwszyON || drugiON)
-                {
-                    return;
-                }
-
-                var CurrencyDara = new FreeCurrencyServise();
-                var rates = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                AlertDialog alerDialog = builder.Create();
-                alerDialog.SetCanceledOnTouchOutside(false);
-                alerDialog.SetTitle(string.Format("Przelicznik: {0} : {1}", kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString()));
-                alerDialog.SetMessage(string.Format(" < {0} > ", rates));
-                alerDialog.SetButton("OK", (s, ev) => { });
-                alerDialog.Show();
-            }
-            catch // wiadomosc o braku polaczenia z internetem
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                AlertDialog alerDialog = builder.Create();
-                alerDialog.SetTitle("Warning!");
-                alerDialog.SetCanceledOnTouchOutside(false);
-                alerDialog.SetMessage("Sprawdz polaczenie z internetem");
-                alerDialog.SetButton("OK", (s, ev) => { });
-                alerDialog.Show();
-                ZmienKolor();
-            }
-        }
-
+        #region (wylaczenie focusu na oknie (wylaczenie metod wprowadzania/klawiatur))
         private void Mrelativ_Click(object sender, EventArgs e) // "dotkniecie" elementow jak i samego layouta
         {
             InputMethodManager inmutManager = (InputMethodManager)this.GetSystemService(Activity.InputMethodService);
             inmutManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
         }
+        #endregion
 
-
+        #region (wybor kombi)
         //instrukcja dzialan funkcji "wybor z listy kombi" -> wyswitla pelna angielska nazwe danej waluty
         private void kombi_selected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
@@ -196,7 +167,9 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 Toast.MakeText(this, "wybrales: " + wybor.e_nazwa, ToastLength.Short).Show();
             }
         }
+        #endregion
 
+        #region (metody interfejsowe)
         public void zmien_znak(object sender, EventArgs e) // zmienianie znaku po nacisnieciu buttom_znak
         {
 
@@ -250,16 +223,55 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 buttom_znak.Text = "znak";
                 buttom_znak.Visibility = ViewStates.Visible;
                 txt2.Visibility = ViewStates.Visible;
-
-                //kombi3.Visibility = ViewStates.Visible; //kombi
+                
             }
             else
             {
                 buttom_znak.Visibility = ViewStates.Gone;
                 txt2.Visibility = ViewStates.Gone;
                 txt2.Text = "";
+                
+            }
+        }
+        #endregion
 
-                //kombi3.Visibility = ViewStates.Gone; // kombi
+        #region (klikacze)
+        private void Buttom_ob_LongClick(object sender, View.LongClickEventArgs e) // dlugie przycisniecie guzika oblicz 
+        { // sprawdzanie online wyrzucone do innej metody i zamiast niego wszystko robione pod try 
+            try
+            {
+                if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
+                {
+                    Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                    return;
+                }
+
+                if (pierwszyON || drugiON)
+                {
+                    return;
+                }
+
+                var CurrencyDara = new FreeCurrencyServise();
+                var rates = CurrencyDara.GetDataFromService(kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerDialog = builder.Create();
+                alerDialog.SetCanceledOnTouchOutside(false);
+                alerDialog.SetTitle(string.Format("Przelicznik: {0} : {1}", kombi1.SelectedItem.ToString(), kombi3.SelectedItem.ToString()));
+                alerDialog.SetMessage(string.Format(" < {0} > ", rates));
+                alerDialog.SetButton("OK", (s, ev) => { });
+                alerDialog.Show();
+            }
+            catch // wiadomosc o braku polaczenia z internetem
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog alerDialog = builder.Create();
+                alerDialog.SetTitle("Warning!");
+                alerDialog.SetCanceledOnTouchOutside(false);
+                alerDialog.SetMessage("Sprawdz polaczenie z internetem");
+                alerDialog.SetButton("OK", (s, ev) => { });
+                alerDialog.Show();
+                ZmienKolor();
             }
         }
 
@@ -335,6 +347,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     }
                     return;
                 }
+
                 if (drugiON)
                 {
                     if (txt2.Text == "")
@@ -372,5 +385,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             }
             
         }
+        #endregion
+
     }
 }

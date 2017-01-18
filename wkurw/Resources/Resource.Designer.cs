@@ -45,22 +45,13 @@ namespace wkurw
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int button_email_style = 2130837504;
+			public const int icon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int checkbox_style = 2130837505;
+			public const int kwadrat_czerwony = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int edit_text_style = 2130837506;
-			
-			// aapt resource value: 0x7f020003
-			public const int icon = 2130837507;
-			
-			// aapt resource value: 0x7f020004
-			public const int kwadrat_czerwony = 2130837508;
-			
-			// aapt resource value: 0x7f020005
-			public const int kwadrat_zielony = 2130837509;
+			public const int kwadrat_zielony = 2130837506;
 			
 			static Drawable()
 			{
@@ -160,12 +151,6 @@ namespace wkurw
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
-			
-			// aapt resource value: 0x7f040003
-			public const int close_drawer = 2130968579;
-			
-			// aapt resource value: 0x7f040002
-			public const int open_drawer = 2130968578;
 			
 			static String()
 			{
