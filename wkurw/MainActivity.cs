@@ -11,17 +11,19 @@ using Plugin.Connectivity;
 
 namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
 {
-    [Activity(Label = "My Andro App", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
+    [Activity(Label = "Kalkulator walut", MainLauncher = true, Icon = "@drawable/icon",Theme ="@style/CustomTheme")]
     public class MainActivity : Activity, IKalku, IOnline
-    {
+    { 
+        //do odpowiednich funkji dodany lektor zalezny od bycia online i swichu
         #region (widok raczki itp)
+
         //wstepna deklaracaj widoku
         private RelativeLayout mrelativ;
         private Button buttom_ob, buttom_znak;
         private TextView txt_wynik;
-        private Switch switch1, switch2;
+        private Switch switch1, switch2,lang_switch;
         private EditText txt1, txt2;
-        private bool pierwszyON, drugiON;
+        private bool pierwszyON, drugiON,lektorON;
         private int znaczek;
 
         private Spinner kombi1, kombi2, kombi3;
@@ -32,6 +34,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
         private bool isOnline;
         private ImageView _net_view;
         private Online online = new Online();
+        private TexTtoSpeecH lektor = new TexTtoSpeecH();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,6 +43,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.calculator);
+
 
             ActionBar.Title = " Oblicze za ciebie ;] ";
             ActionBar.SetDisplayShowTitleEnabled(true);
@@ -52,6 +56,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             txt_wynik = FindViewById<TextView>(Resource.Id.txt_wynik);
             switch2 = FindViewById<Switch>(Resource.Id.switch_dziel_mnoz);
             switch1 = FindViewById<Switch>(Resource.Id.switch_dodac_odjac);
+            lang_switch = FindViewById<Switch>(Resource.Id.switch_lektor);
             txt1 = FindViewById<EditText>(Resource.Id.txt_waluta_1);
             txt2 = FindViewById<EditText>(Resource.Id.txt_waluta_2);
 
@@ -60,8 +65,12 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
 
             _net_view = FindViewById<ImageView>(Resource.Id.imageView1);
-            
 
+
+            txt1.TextChanged += TextChanged;
+            txt2.TextChanged += TextChanged;
+            txt1.LongClick += Txt1_LongClick;
+            txt2.LongClick += Txt2_LongClick;
 
             //towrzenie tablicy stringow wykorzystawane w polach kobi (spinner)
             var kombi_1 = new string[walut_lista.Items.Count + 1];
@@ -101,10 +110,41 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             //przypisanie swithcom funkcji
             switch1.CheckedChange += visible_of_first;
             switch2.CheckedChange += visible_of_second;
+            lang_switch.CheckedChange += Lang_switch_CheckedChange;
 
             //wywolanie sprawdzania internetu
             ChceckNetwork();
             CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged; 
+        }
+
+        #endregion
+
+        #region (lektor)
+        // czytanie przy zmianie wprowadzanego tekstu / long kliku
+        private void Txt2_LongClick(object sender, View.LongClickEventArgs e)
+        {
+            if (lektorON) lektor.say_(txt2.Text.ToString());
+        }
+
+        private void Txt1_LongClick(object sender, View.LongClickEventArgs e)
+        {
+            if (lektorON) lektor.say_(txt1.Text.ToString());
+        }
+
+        private void TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            if (lektorON) lektor.say_(e.Text.ToString());
+        }
+
+        public void Lang_switch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        { //swich od wlacznika lektora
+            if (isOnline) lektorON = lang_switch.Checked;
+            else
+            {
+                lang_switch.Checked = false;
+                Toast.MakeText(this, "Lektor potrzebuje internetu", ToastLength.Short).Show();
+            }
+
         }
         #endregion
 
@@ -119,12 +159,16 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
         {
             isOnline = online.is_Online();
             if (isOnline) _net_view.SetImageResource(Resource.Drawable.kwadrat_zielony);
-            else _net_view.SetImageResource(Resource.Drawable.kwadrat_czerwony);
+            else
+            {
+                _net_view.SetImageResource(Resource.Drawable.kwadrat_czerwony);
+                lang_switch.Checked = false;
+            }
         }
 
         public async void ChceckNetwork() // sprawdzanie mozliwosci ONLINE i ew wejscie w ustawienia
         {
-            await Task.Delay(750);
+            await Task.Delay(400);
             ZmienKolor();
             if (!isOnline)
                 {
@@ -133,12 +177,12 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     alerNet.SetCancelable(false);
                     alerNet.SetTitle("Warning!");
                     alerNet.SetMessage("Internet jest wymagany");
-                    alerNet.SetButton("Wlacz wifi", (s, ev) =>
+                    alerNet.SetButton("Włacz wifi", (s, ev) =>
                     {
                         wifiManager = (WifiManager)GetSystemService(WifiService);
                         wifiManager.SetWifiEnabled(true);
                     });
-                    alerNet.SetButton2("Wlacz dane komorkowe", (s, ev) =>
+                    alerNet.SetButton2("Włacz dane komorkowe", (s, ev) =>
                     {
                         var intent = new Intent(Android.Provider.Settings.ActionSettings);
                         StartActivity(intent);
@@ -164,7 +208,10 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             if (e.Parent.GetItemAtPosition(e.Position) != e.Parent.GetItemAtPosition(0))
             {
                 var wybor = walut_lista.Items[e.Position - 1];
-                Toast.MakeText(this, "wybrales: " + wybor.e_nazwa, ToastLength.Short).Show();
+                Toast.MakeText(this, "wybraleś: " + wybor.e_nazwa, ToastLength.Short).Show();
+
+                if (lektorON) lektor.say_("wybraleś: " + wybor.e_nazwa);
+                
             }
         }
         #endregion
@@ -177,10 +224,20 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             if (pierwszyON)
             {
                 buttom_znak.Text = (znaczek == 0 ? "+" : "-");
+                if (lektorON)
+                {
+                    if (znaczek == 0) lektor.say_("dodawanie");
+                    else lektor.say_("odejmowanie");
+                }
             }
             if (drugiON)
             {
                 buttom_znak.Text = (znaczek == 0 ? "x" : "/");
+                if (lektorON)
+                {
+                    if (znaczek == 0) lektor.say_("mnożenie");
+                    else lektor.say_("dzielenie");
+                }
             }
             znaczek++;
 
@@ -243,6 +300,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
                 {
                     Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                    if (lektorON) lektor.say_("wybierz walute");
                     return;
                 }
 
@@ -261,6 +319,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 alerDialog.SetMessage(string.Format(" < {0} > ", rates));
                 alerDialog.SetButton("OK", (s, ev) => { });
                 alerDialog.Show();
+                if (lektorON) lektor.say_("Przelicznik wynosi " + rates);
             }
             catch // wiadomosc o braku polaczenia z internetem
             {
@@ -282,6 +341,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 if (txt1.Text == "")
                 {
                     Toast.MakeText(this, "podaj kwote", ToastLength.Short).Show();
+                    if (lektorON) lektor.say_("Podaj kwotę");
                     return;
                 }
 
@@ -294,6 +354,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 if (kombi1.SelectedItemPosition == 0 || kombi3.SelectedItemPosition == 0)
                 {
                     Toast.MakeText(this, "wybierz walute", ToastLength.Short).Show();
+                    if (lektorON) lektor.say_("wybierz walutę");
                     return;
                 }
 
@@ -305,6 +366,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                 if (!pierwszyON && !drugiON)
                 {
                     txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1);
+                    if (lektorON) lektor.say_(string.Format("wynik wynosi {0:N2}", exchange_z_1));
                     return;
                 }
 
@@ -313,6 +375,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     if (txt2.Text == "")
                     {
                         Toast.MakeText(this, "podaj 2 nominal", ToastLength.Short).Show();
+                        if (lektorON) lektor.say_("podaj drugi nominał");
                         return;
                     }
 
@@ -325,12 +388,14 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     if (kombi2.SelectedItemPosition == 0)
                     {
                         Toast.MakeText(this, "wybierz 2 walute", ToastLength.Short).Show();
+                        if (lektorON) lektor.say_("wybierz drugą walutę");
                         return;
                     }
 
                     if (buttom_znak.Text == "znak")
                     {
                         Toast.MakeText(this, "ustal znak", ToastLength.Short).Show();
+                        if (lektorON) lektor.say_("ustal znak");
                         return;
                     }
         
@@ -341,9 +406,13 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     switch (buttom_znak.Text)
                     {
                         case "+":
-                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 + exchane_z_2); break;
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 + exchane_z_2);
+                            if (lektorON) lektor.say_(string.Format("wynik wynosi {0:N2}", exchange_z_1 + exchane_z_2));
+                            break;
                         case "-":
-                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 - exchane_z_2); break;
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 - exchane_z_2);
+                            if (lektorON) lektor.say_(string.Format("wynik wynosi {0:N2}", exchange_z_1 - exchane_z_2));
+                            break;
                     }
                     return;
                 }
@@ -353,21 +422,27 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     if (txt2.Text == "")
                     {
                         Toast.MakeText(this, "podaj liczbe", ToastLength.Short).Show();
+                        if(lektorON) lektor.say_("podaj liczbę");
                         return;
                     }
 
                     if (buttom_znak.Text == "znak")
                     {
                         Toast.MakeText(this, "ustal znak", ToastLength.Short).Show();
+                        if (lektorON) lektor.say_("ustal znak");
                         return;
                     }
 
                     switch (buttom_znak.Text)
                     {
                         case "x":
-                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 * double.Parse(txt2.Text)); break;
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 * double.Parse(txt2.Text));
+                            if (lektorON) lektor.say_(string.Format("wynik wynosi {0:N2}", exchange_z_1 * double.Parse(txt2.Text)));
+                            break;
                         case "/":
-                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 / double.Parse(txt2.Text)); break;
+                            txt_wynik.Text = string.Format("wynik: {0:N2}", exchange_z_1 / double.Parse(txt2.Text));
+                            if (lektorON) lektor.say_(string.Format("wynik wynosi {0:N2}", exchange_z_1 / double.Parse(txt2.Text)));
+                            break;
                     }
                     return;
                 }

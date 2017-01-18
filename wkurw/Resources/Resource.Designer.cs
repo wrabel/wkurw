@@ -26,6 +26,8 @@ namespace wkurw
 		
 		public static void UpdateIdValues()
 		{
+			global::Refractored.Xam.TTS.Resource.String.ApplicationName = global::wkurw.Resource.String.ApplicationName;
+			global::Refractored.Xam.TTS.Resource.String.Hello = global::wkurw.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -66,29 +68,29 @@ namespace wkurw
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060011
+			public const int button_oblicz = 2131099665;
+			
+			// aapt resource value: 0x7f060008
+			public const int button_znak = 2131099656;
+			
 			// aapt resource value: 0x7f060010
-			public const int button_oblicz = 2131099664;
-			
-			// aapt resource value: 0x7f060007
-			public const int button_znak = 2131099655;
-			
-			// aapt resource value: 0x7f06000f
-			public const int imageView1 = 2131099663;
+			public const int imageView1 = 2131099664;
 			
 			// aapt resource value: 0x7f060001
 			public const int linearLayout1 = 2131099649;
 			
-			// aapt resource value: 0x7f060006
-			public const int linearLayout2 = 2131099654;
+			// aapt resource value: 0x7f060007
+			public const int linearLayout2 = 2131099655;
 			
-			// aapt resource value: 0x7f060008
-			public const int linearLayout3 = 2131099656;
+			// aapt resource value: 0x7f060009
+			public const int linearLayout3 = 2131099657;
 			
-			// aapt resource value: 0x7f06000b
-			public const int linearLayout4 = 2131099659;
+			// aapt resource value: 0x7f06000c
+			public const int linearLayout4 = 2131099660;
 			
-			// aapt resource value: 0x7f06000e
-			public const int linearLayoutimagine = 2131099662;
+			// aapt resource value: 0x7f06000f
+			public const int linearLayoutimagine = 2131099663;
 			
 			// aapt resource value: 0x7f060000
 			public const int m_View = 2131099648;
@@ -99,23 +101,26 @@ namespace wkurw
 			// aapt resource value: 0x7f060005
 			public const int switch_dziel_mnoz = 2131099653;
 			
+			// aapt resource value: 0x7f060006
+			public const int switch_lektor = 2131099654;
+			
 			// aapt resource value: 0x7f060003
 			public const int txt_kombi_1 = 2131099651;
 			
-			// aapt resource value: 0x7f06000a
-			public const int txt_kombi_2 = 2131099658;
+			// aapt resource value: 0x7f06000b
+			public const int txt_kombi_2 = 2131099659;
 			
-			// aapt resource value: 0x7f06000d
-			public const int txt_kombi_3 = 2131099661;
+			// aapt resource value: 0x7f06000e
+			public const int txt_kombi_3 = 2131099662;
 			
 			// aapt resource value: 0x7f060002
 			public const int txt_waluta_1 = 2131099650;
 			
-			// aapt resource value: 0x7f060009
-			public const int txt_waluta_2 = 2131099657;
+			// aapt resource value: 0x7f06000a
+			public const int txt_waluta_2 = 2131099658;
 			
-			// aapt resource value: 0x7f06000c
-			public const int txt_wynik = 2131099660;
+			// aapt resource value: 0x7f06000d
+			public const int txt_wynik = 2131099661;
 			
 			static Id()
 			{
