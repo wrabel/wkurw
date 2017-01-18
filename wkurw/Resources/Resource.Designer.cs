@@ -82,7 +82,7 @@ namespace wkurw
 			public const int button_znak = 2131099655;
 			
 			// aapt resource value: 0x7f06000f
-			public const int imageButton1 = 2131099663;
+			public const int imageView1 = 2131099663;
 			
 			// aapt resource value: 0x7f060001
 			public const int linearLayout1 = 2131099649;

@@ -2,15 +2,12 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
 using Android.Content;
 using Android.Views.InputMethods;
-using Android.Util;
 using System;
-using Android.Net;
 using Android.Net.Wifi;
 using System.Threading.Tasks;
-using System.Net;
+using Plugin.Connectivity;
 
 namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
 {
@@ -32,7 +29,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
         
         private WifiManager wifiManager;
         private bool isOnline;
-        private ImageButton _net_btn;
+        private ImageView _net_view;
         private Online online = new Online();
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -61,8 +58,9 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
             kombi2 = FindViewById<Spinner>(Resource.Id.txt_kombi_2);
             kombi3 = FindViewById<Spinner>(Resource.Id.txt_kombi_3);
 
-            _net_btn = FindViewById<ImageButton>(Resource.Id.imageButton1);
-            _net_btn.Click += _net_btn_Click;
+            _net_view = FindViewById<ImageView>(Resource.Id.imageView1);
+            
+
 
             //towrzenie tablicy stringow wykorzystawane w polach kobi (spinner)
             var kombi_1 = new string[walut_lista.Items.Count + 1];
@@ -101,24 +99,24 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
 
             //wywolanie sprawdzania internetu
             ChceckNetwork();
+            CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
-        private void _net_btn_Click(object sender, EventArgs e) //przycisniecie czerwono/zielonego gudzika
+        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
             ZmienKolor();
         }
-
+        
         public void ZmienKolor() // zmienianie koloru przycisku w zaleznosci od obecnego ONLINE
         {
             isOnline = online.is_Online();
-            if (isOnline) _net_btn.SetImageResource(Resource.Drawable.kwadrat_zielony);
-            else _net_btn.SetImageResource(Resource.Drawable.kwadrat_czerwony);
+            if (isOnline) _net_view.SetImageResource(Resource.Drawable.kwadrat_zielony);
+            else _net_view.SetImageResource(Resource.Drawable.kwadrat_czerwony);
         }
         public async void ChceckNetwork() // sprawdzanie mozliwosci ONLINE i ew wejscie w ustawienia
         {
-            await Task.Delay(1000);
+            await Task.Delay(750);
             ZmienKolor();
-            isOnline = online.is_Online();
             if (!isOnline)
                 {
                     AlertDialog.Builder build = new AlertDialog.Builder(this);
@@ -139,7 +137,6 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                     });
                     alerNet.Show();
                 } 
-            await Task.Delay(4000);
             ZmienKolor();
 
 
@@ -307,7 +304,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                         return;
                     }
 
-                    var drugi_txt = txt1.Text.Replace(".", ",");
+                    var drugi_txt = txt2.Text.Replace(".", ",");
                     if (drugi_txt.StartsWith(","))
                     {
                         drugi_txt = "0" + drugi_txt;
@@ -324,7 +321,7 @@ namespace wkurw // Wielofunkcjyjny Kalkulator Uwzgledniajacy Realna Walute
                         Toast.MakeText(this, "ustal znak", ToastLength.Short).Show();
                         return;
                     }
-
+        
                     var rate_from_2 = CurrencyDara.GetDataFromService(kombi2.SelectedItem.ToString(), kombi3.SelectedItem.ToString());
                     var kwota_z_2 = double.Parse(drugi_txt);
                     var exchane_z_2 = kwota_z_2 * rate_from_2;

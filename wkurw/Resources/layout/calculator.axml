@@ -116,10 +116,10 @@
                 android:minWidth="25px"
                 android:minHeight="200dp"
                 android:id="@+id/linearLayoutimagine">
-                <ImageButton
+                <ImageView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageButton1"
+                    android:id="@+id/imageView1"
                     android:layout_gravity="center" />
                 <Button
                     android:text="Oblicz"
